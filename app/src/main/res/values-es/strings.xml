@@ -7,4 +7,9 @@
     <string name="search_title">¡Encontrá los vuelos que más te interesan!</string>
     <string name="search_placeholder">Ingresa el destino o el número de vuelo</string>
     <string name="menu_options">Menú de opciones</string>
+    <string name="search_action">Buscar</string>
+    <string name="menu_search">Buscar</string>
+    <string name="menu_notifications">Suscripciones</string>
+    <string name="menu_deals">Ofertas</string>
+    <string name="menu_settings">Configuración</string>
 </resources>
