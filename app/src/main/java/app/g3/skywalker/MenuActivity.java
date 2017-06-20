@@ -1,5 +1,7 @@
 package app.g3.skywalker;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,9 @@ import android.view.MenuItem;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Fragment fragment;
+    FragmentManager fragmentManager = getFragmentManager(); // For AppCompat use getSupportFragmentManager
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,14 +87,21 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            fragment = new SearchFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
+
         } else if (id == R.id.nav_gallery) {
             Intent myIntent = new Intent(MenuActivity.this, MapDealActivity.class);
             //myIntent.putExtra("key", value); //Optional parameters
             MenuActivity.this.startActivity(myIntent);
 
         } else if (id == R.id.nav_slideshow) {
-
+            fragment = new BlankFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
         } else if (id == R.id.nav_manage) {
 
         }

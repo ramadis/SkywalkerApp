@@ -39,7 +39,7 @@
 
         <activity
             android:name=".MapDealActivity"
-            android:label="@string/title_activity_map_deal"></activity>
+            android:label="@string/title_activity_map_deal" />
     </application>
 
 </manifest>
