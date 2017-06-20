@@ -10,7 +10,7 @@
     <string name="search_action">Buscar</string>
     <string name="menu_search">Buscar</string>
     <string name="menu_notifications">Suscripciones</string>
-    <string name="menu_deals">Ofertas</string>
+    <string name="menu_deals">Mapa de ofertas</string>
     <string name="menu_settings">Configuración</string>
     <string name="title_activity_map_deal">Mapa de ofertas</string>
 </resources>
