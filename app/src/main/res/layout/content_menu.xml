@@ -14,13 +14,13 @@
     tools:showIn="@layout/app_bar_menu">
 
     <AutoCompleteTextView
-        android:text="AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp"
-        android:id="@+id/autoCompleteTextView" />
+        android:id="@+id/autoCompleteTextView"
+        android:completionHint="@string/search_placeholder" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -28,5 +28,9 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:id="@+id/textView3" />
+        android:id="@+id/textView3"
+        tools:text="@string/search_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textStyle="normal|bold"
+        android:textSize="18sp" />
 </RelativeLayout>
