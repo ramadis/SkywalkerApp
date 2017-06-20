@@ -6,4 +6,5 @@
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="search_title">¡Encontrá los vuelos que más te interesan!</string>
     <string name="search_placeholder">Ingresa el destino o el número de vuelo</string>
+    <string name="menu_options">Menú de opciones</string>
 </resources>
