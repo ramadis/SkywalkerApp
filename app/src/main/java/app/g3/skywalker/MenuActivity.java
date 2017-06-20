@@ -103,7 +103,10 @@ public class MenuActivity extends AppCompatActivity
                     .replace(R.id.content_menu, fragment)
                     .commit();
         } else if (id == R.id.nav_manage) {
-
+            fragment = new SettingsFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
