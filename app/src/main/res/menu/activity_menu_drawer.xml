@@ -4,7 +4,7 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_fire"
+            android:icon="@drawable/ic_menu_plane"
             android:title="@string/menu_search" />
         <item
             android:id="@+id/nav_gallery"
@@ -12,7 +12,7 @@
             android:title="@string/menu_deals" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_menu_bell"
             android:title="@string/menu_notifications" />
         <item
             android:id="@+id/nav_manage"

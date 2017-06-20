@@ -20,10 +20,16 @@
         android:id="@+id/autoCompleteTextView"
         android:completionHint="@string/search_placeholder"
         android:layout_toStartOf="@+id/button"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:capitalize="sentences"
+        tools:ignore="UnknownId"
+        android:maxLines="1" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
@@ -33,15 +39,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="normal|bold"
         android:textSize="18sp"
-        android:textColor="@color/colorAccent" />
+        android:textColor="@color/colorAccent"
+        android:textAlignment="center" />
 
-    <Button
-        android:text="@string/search_action"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:layout_alignTop="@+id/autoCompleteTextView"
-        android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/autoCompleteTextView"
-        style="@style/Widget.AppCompat.Button.Colored" />
 </RelativeLayout>
