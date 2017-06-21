@@ -13,4 +13,5 @@
     <string name="menu_deals">Mapa de ofertas</string>
     <string name="menu_settings">Configuración</string>
     <string name="title_activity_map_deal">Mapa de ofertas</string>
+    <string name="settings_polling_title">Tiempo entre actualizaciones</string>
 </resources>

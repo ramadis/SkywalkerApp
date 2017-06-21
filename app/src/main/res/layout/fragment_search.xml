@@ -4,6 +4,20 @@
     android:layout_height="match_parent"
     tools:context="app.g3.skywalker.SearchFragment">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="14dp"
+            android:id="@+id/textView3"
+            tools:text="@string/search_title"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="normal|bold"
+            android:textSize="18sp"
+            android:textColor="@color/colorAccent"
+            android:textAlignment="center" />
+
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
@@ -18,18 +32,4 @@
             android:capitalize="sentences"
             tools:ignore="UnknownId"
             android:maxLines="1" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
-            android:id="@+id/textView3"
-            tools:text="@string/search_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="normal|bold"
-            android:textSize="18sp"
-            android:textColor="@color/colorAccent"
-            android:textAlignment="center" />
 </FrameLayout>
