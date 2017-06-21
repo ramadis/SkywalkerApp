@@ -17,4 +17,5 @@
     <string name="exit_message">Are you sure you want to close Skywalker app?</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
+    <string name="subscribe_action">Subscribe</string>
 </resources>

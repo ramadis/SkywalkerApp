@@ -17,4 +17,5 @@
     <string name="exit_message">¿Estás seguro que quieres cerrar la aplicación?</string>
     <string name="no">no</string>
     <string name="yes">si</string>
+    <string name="subscribe_action">Subscribirse</string>
 </resources>
