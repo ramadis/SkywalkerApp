@@ -14,4 +14,7 @@
     <string name="menu_settings">Configuración</string>
     <string name="title_activity_map_deal">Mapa de ofertas</string>
     <string name="settings_polling_title">Tiempo entre actualizaciones</string>
+    <string name="exit_message">¿Estás seguro que quieres cerrar la aplicación?</string>
+    <string name="no">no</string>
+    <string name="yes">si</string>
 </resources>

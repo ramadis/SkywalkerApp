@@ -2,10 +2,12 @@ package app.g3.skywalker;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -21,6 +23,7 @@ public class MenuActivity extends AppCompatActivity
 
     Fragment fragment;
     FragmentManager fragmentManager = getFragmentManager(); // For AppCompat use getSupportFragmentManager
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,16 @@ public class MenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            new AlertDialog.Builder(this)
+                .setMessage(getString(R.string.exit_message))
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        MenuActivity.super.onBackPressed();
+                    }
+                })
+                .setNegativeButton(R.string.no, null)
+                .show();
         }
     }
 
