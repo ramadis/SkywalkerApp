@@ -46,6 +46,10 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        fragment = new SearchFragment();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_menu, fragment)
+                .commit();
     }
 
     @Override
