@@ -18,12 +18,23 @@
             android:textColor="@color/colorAccent"
             android:textAlignment="center" />
 
+        <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_width="0px"
+            android:layout_height="0px"/>
+
+
         <AutoCompleteTextView
             android:layout_width="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginTop="48dp"
             android:id="@+id/autoCompleteTextView"
+            android:imeOptions="flagNoExtractUi"
+            android:nextFocusUp="@+id/autoCompleteTextView"
+            android:nextFocusLeft="@+id/autoCompleteTextView"
             android:completionHint="@string/search_placeholder"
+            android:hint="@string/search_placeholder"
             android:layout_toStartOf="@+id/button"
             android:layout_height="wrap_content"
             android:textSize="24sp"
@@ -31,5 +42,6 @@
             android:textAlignment="center"
             android:capitalize="sentences"
             tools:ignore="UnknownId"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:ellipsize="end"/>
 </FrameLayout>
