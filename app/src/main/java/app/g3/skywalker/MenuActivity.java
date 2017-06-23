@@ -48,8 +48,6 @@ public class MenuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        onNavigationItemSelected(navigationView.getMenu().getItem(0));
         navigationView.setNavigationItemSelectedListener(this);
         fragment = new SearchFragment();
         fragmentManager.beginTransaction()
@@ -111,7 +109,7 @@ public class MenuActivity extends AppCompatActivity
                     .commit();
 
         } else if (id == R.id.nav_gallery) {
-            Intent myIntent = new Intent(MenuActivity.this, MapDealActivity.class);
+            Intent myIntent = new Intent(MenuActivity.this, ResultsActivity.class);
             //myIntent.putExtra("key", value); //Optional parameters
             MenuActivity.this.startActivity(myIntent);
 
