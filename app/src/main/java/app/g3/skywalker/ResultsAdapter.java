@@ -1,6 +1,7 @@
 package app.g3.skywalker;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.PersonVi
 
     List<Person> persons;
 
+    // TODO: Receive context to get resources.
     ResultsAdapter(List<Person> persons){
         this.persons = persons;
     }
@@ -57,10 +59,13 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.PersonVi
         Button btn;
 
         public void onClick(View v) {
+            btn.setText("DESUSCRIBIRSE");
+            btn.setBackgroundColor(Color.parseColor("#d8ad56"));
             Log.d("test", "test");
         }
 
         PersonViewHolder(View itemView) {
+            // TODO: Receive also state for the button to know which text and style to show?
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardResultElement);
             btn = (Button) cv.findViewById(R.id.subscribe_button);
