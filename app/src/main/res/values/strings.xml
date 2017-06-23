@@ -23,4 +23,5 @@
     <string name="no">no</string>
     <string name="subscribe_action">Subscribe</string>
     <string name="title_activity_results">Results</string>
+    <string name="price_deal_tag">ONLY U$D</string>
 </resources>

@@ -19,4 +19,5 @@
     <string name="yes">si</string>
     <string name="subscribe_action">Subscribirse</string>
     <string name="title_activity_results">Resultados</string>
+    <string name="price_deal_tag">SOLO U$D</string>
 </resources>

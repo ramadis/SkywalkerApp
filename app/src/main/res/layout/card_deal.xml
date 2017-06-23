@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                app:srcCompat="@drawable/cast_ic_notification_stop_live_stream"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                android:id="@+id/imageView2"
+                android:layout_alignParentEnd="true"
+                android:layout_height="200dp" />
+
+            <TextView
+                android:text="SOLO USD640"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textStyle="normal|bold"
+                android:layout_alignBottom="@+id/imageView2"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:text="Londres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:textSize="36sp"
+                android:textStyle="normal|bold"
+                android:textColor="@color/cardview_dark_background"
+                android:layout_above="@+id/textView10"
+                android:layout_alignParentStart="true" />
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
