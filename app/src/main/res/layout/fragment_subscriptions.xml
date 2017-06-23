@@ -19,7 +19,8 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp" />
+            android:paddingRight="15dp"
+            android:elevation="0dp" />
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"

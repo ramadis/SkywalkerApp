@@ -5,11 +5,11 @@ package app.g3.skywalker;
  */
 
 public class Deal {
-    String city;
+    City city;
     Integer id;
     Double price;
 
-    Deal(Integer id, String city, Double price) {
+    Deal(Integer id, City city, Double price) {
         this.city = city;
         this.id = id;
         this.price = price;

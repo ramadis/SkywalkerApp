@@ -83,6 +83,7 @@ public class SearchFragment extends Fragment {
 
         // Attach adapter
         DealsAdapter adapter = new DealsAdapter(deals, getActivity());
+        adapter.getDeals();
         rv.setAdapter(adapter);
 
         return rootView;
@@ -114,11 +115,11 @@ public class SearchFragment extends Fragment {
 
     private void initializeData() {
         deals = new ArrayList<>();
-        deals.add(new Deal(1,"Emma Wilson", 500.0));
+        /*deals.add(new Deal(1,"Emma Wilson", 500.0));
         deals.add(new Deal(2,"Lavery Maiss", 600.0));
         deals.add(new Deal(3,"Lillie Watts", 700.0));
         deals.add(new Deal(4,"Lillie Watt=s", 800.0));
-        deals.add(new Deal(5,"Lillie Wat", 900.0));
+        deals.add(new Deal(5,"Lillie Wat", 900.0));*/
     }
 
     /**
