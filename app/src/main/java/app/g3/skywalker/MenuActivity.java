@@ -5,10 +5,7 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -114,7 +111,7 @@ public class MenuActivity extends AppCompatActivity
             MenuActivity.this.startActivity(myIntent);
 
         } else if (id == R.id.nav_slideshow) {
-            fragment = new BlankFragment();
+            fragment = new SubscriptionsFragment();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_menu, fragment)
                     .commit();
