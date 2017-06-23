@@ -4,9 +4,14 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -22,6 +27,7 @@ public class SearchFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private List<Deal> deals;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,7 +70,22 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+
+        initializeData();
+
+        // Create rv
+        RecyclerView rv = (RecyclerView) rootView.findViewById(R.id.dealViewRV);
+
+        // Assign linear layout
+        LinearLayoutManager llm = new LinearLayoutManager(getActivity());
+        rv.setLayoutManager(llm);
+
+        // Attach adapter
+        DealsAdapter adapter = new DealsAdapter(deals, getActivity());
+        rv.setAdapter(adapter);
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -91,6 +112,15 @@ public class SearchFragment extends Fragment {
         mListener = null;
     }
 
+    private void initializeData() {
+        deals = new ArrayList<>();
+        deals.add(new Deal(1,"Emma Wilson", 500.0));
+        deals.add(new Deal(2,"Lavery Maiss", 600.0));
+        deals.add(new Deal(3,"Lillie Watts", 700.0));
+        deals.add(new Deal(4,"Lillie Watt=s", 800.0));
+        deals.add(new Deal(5,"Lillie Wat", 900.0));
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -106,3 +136,9 @@ public class SearchFragment extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 }
+
+
+
+    // This method creates an ArrayList that has three Person objects
+// Checkout the project associated with this tutorial on Github if
+// you want to use the same images.

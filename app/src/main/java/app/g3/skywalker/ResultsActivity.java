@@ -36,9 +36,6 @@ public class ResultsActivity extends AppCompatActivity {
         rv.setLayoutManager(llm);
         ResultsAdapter adapter = new ResultsAdapter(persons);
         rv.setAdapter(adapter);
-
-
-
     }
 }
 
