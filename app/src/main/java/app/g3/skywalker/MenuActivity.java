@@ -48,6 +48,8 @@ public class MenuActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+
+        onNavigationItemSelected(navigationView.getMenu().getItem(0));
         navigationView.setNavigationItemSelectedListener(this);
         fragment = new SearchFragment();
         fragmentManager.beginTransaction()
