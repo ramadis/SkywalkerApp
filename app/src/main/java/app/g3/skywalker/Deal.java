@@ -5,13 +5,21 @@ package app.g3.skywalker;
  */
 
 public class Deal {
-    City city;
-    Integer id;
-    Double price;
+    private City city;
+    private Integer id;
+    private Double price;
 
     Deal(Integer id, City city, Double price) {
         this.city = city;
         this.id = id;
         this.price = price;
+    }
+
+    public City getCity() {
+        return this.city;
+    }
+
+    public Double getPrice() {
+        return this.price;
     }
 }

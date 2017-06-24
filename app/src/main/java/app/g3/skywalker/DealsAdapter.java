@@ -96,8 +96,8 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealViewHold
 
     @Override
     public void onBindViewHolder(DealViewHolder personViewHolder, int i) {
-        personViewHolder.city.setText(deals.get(i).city.toString());
-        personViewHolder.price.setText(context.getResources().getString(R.string.price_deal_tag) + deals.get(i).price.toString());
+        personViewHolder.city.setText(deals.get(i).getCity().toString());
+        personViewHolder.price.setText(context.getResources().getString(R.string.price_deal_tag) + deals.get(i).getPrice().toString());
     }
 
     @Override
