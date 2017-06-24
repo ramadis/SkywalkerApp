@@ -88,7 +88,7 @@ public class MenuActivity extends AppCompatActivity
                 // TODO Auto-generated method stub
                 while (true) {
                     try {
-                        Thread.sleep(Utils.get().interval * 1000);
+                        Thread.sleep(Utils.get().interval * 60 * 1000);
                         handler.post(new Runnable() {
 
                             @Override
@@ -122,6 +122,7 @@ public class MenuActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.getMenu().getItem(0).setChecked(true);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -273,8 +274,11 @@ public class MenuActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_subscriptions) {
+            fragment = new SubscriptionsFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
