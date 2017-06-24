@@ -1,10 +1,12 @@
 package app.g3.skywalker;
 
+import java.io.Serializable;
+
 /**
  * Created by rama on 24/06/17.
  */
 
-public class Airport {
+public class Airport implements Serializable {
     String id;
     String description;
     String time_zone;

@@ -1,10 +1,12 @@
 package app.g3.skywalker;
 
+import java.io.Serializable;
+
 /**
  * Created by rama on 24/06/17.
  */
 
-public class Checkpoint {
+public class Checkpoint implements Serializable {
     Airport airport;
     String scheduled_time;
     String actual_time;

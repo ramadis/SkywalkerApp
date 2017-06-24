@@ -53,13 +53,19 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
         if (!fileExists) return;
         try {
+            Log.d("Reading", "started");
             byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+            Log.d("Reading", "bytes read");
             ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+            Log.d("Reading", "bytes input casted");
             ObjectInputStream si = new ObjectInputStream(bi);
+            Log.d("Reading", "stream generated");
             List<Flight> newFlights = (List<Flight>) si.readObject();
             flights.addAll(newFlights);
             notifyDataSetChanged();
-        } catch(Throwable e) {}
+        } catch(Throwable e) {
+            Log.d("Reading", "failed: " + e.toString());
+        }
     }
 
     @Override

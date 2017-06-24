@@ -84,15 +84,21 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         boolean dirExists = storage.isDirectoryExists("Skywalker");
         if (!dirExists) storage.createDirectory("Skywalker");
         boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
-        if (!fileExists) {
-            try {
-                ByteArrayOutputStream bo = new ByteArrayOutputStream();
-                ObjectOutputStream so = new ObjectOutputStream(bo);
-                so.writeObject(flights);
-                so.flush();
-                storage.createFile("Skywalker", "Subscriptions", bo.toString());
-            } catch(Throwable e) {}
+        Log.d("Existe", fileExists? "existe" : "No");
+        if(fileExists) storage.deleteFile("Skywalker", "Subscriptions");
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream so = new ObjectOutputStream(bo);
+            so.writeObject(flights);
+            //Log.d("sofar", "sogoodd");
+            //so.flush();
+            storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
+            //Log.d("Creado", "creado");
+        } catch(Throwable e) {
+            Log.d("error", e.toString());
         }
+
     }
 
     public void getResultsWithFlight(String flightId, String airlineId) {
