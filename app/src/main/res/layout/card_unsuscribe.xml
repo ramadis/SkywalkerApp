@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/cardResultLayout"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:id="@+id/cardResultElement"
+        android:layout_height="wrap_content" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="EZE a PUJ"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/airline_name"
+                android:id="@+id/from_to_shorts"
+                android:textStyle="normal|bold"
+                android:textSize="30sp"
+                android:layout_below="@+id/airline_name"
+                android:layout_alignEnd="@+id/textView7" />
+
+            <TextView
+                android:text="LATAM"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="15dp"
+                android:id="@+id/airline_name"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:text="@string/unsuscribe_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subscribe_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_below="@+id/from_to_shorts"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:text="18:00 todos los jueves"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_marginEnd="25dp"
+                android:textAlignment="viewEnd"
+                android:layout_above="@+id/from_to_shorts"
+                android:layout_alignParentEnd="true" />
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

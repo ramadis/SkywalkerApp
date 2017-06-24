@@ -1,7 +1,9 @@
 package app.g3.skywalker;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,7 +44,7 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
 
     @Override
     public SubscriptionsAdapter.FlightViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_result, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_unsuscribe, viewGroup, false);
         SubscriptionsAdapter.FlightViewHolder pvh = new SubscriptionsAdapter.FlightViewHolder(v, this);
         return pvh;
     }
@@ -134,9 +136,19 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         SubscriptionsAdapter adapter;
         Button btn;
 
-        public void onClick(View v) {
-            adapter.removeSubscription(v.getTag().toString());
-            adapter.getSubscriptions();
+        public void onClick(final View v) {
+            new AlertDialog.Builder(adapter.context)
+                .setMessage(adapter.context.getString(R.string.exit_message))
+                .setPositiveButton(R.string.unsuscribe_action, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.removeSubscription(v.getTag().toString());
+                        adapter.getSubscriptions();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+
         }
 
         FlightViewHolder(View itemView) {

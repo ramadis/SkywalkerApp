@@ -22,4 +22,5 @@
     <string name="price_deal_tag">ONLY U$D</string>
     <string name="close">close</string>
     <string name="cancel">cancel</string>
+    <string name="unsuscribe_action">Unsuscribe</string>
 </resources>
