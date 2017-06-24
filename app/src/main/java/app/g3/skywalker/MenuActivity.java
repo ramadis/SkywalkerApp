@@ -5,6 +5,8 @@ import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -16,10 +18,24 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -59,10 +75,55 @@ public class MenuActivity extends AppCompatActivity
             //window.setStatusBarColor(Color.parseColor("#ffffff"));
         }
 
+
+        LocationManager locationManager = (LocationManager) getSystemService(this.LOCATION_SERVICE);
+        boolean isGPSEnabledboolean = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        if (isGPSEnabledboolean) {
+            try {
+                Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                Utils u = Utils.get();
+                String latitude = ((Double) loc.getLatitude()).toString();
+                String longitude = ((Double) loc.getLongitude()).toString();
+                getCity(latitude, longitude);
+            } catch (SecurityException t) {}
+        }
+
         fragment = new SearchFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_menu, fragment)
                 .commit();
+    }
+
+    public void getCity(String latitude, String longitude) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        // http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairportsbyposition&latitude=-34.60&longitude=-58.38&radius=40
+        String url ="http://hci.it.itba.edu.ar/v1/api/geo.groovy?method=getairportsbyposition&latitude="+latitude+"&longitude="+longitude;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject root = new JSONObject(response);
+                            String airportsString = root.getJSONArray("airports").toString();
+                            List<Airport> airports = (List<Airport>) new Gson().fromJson(airportsString, Airport.class);
+
+                            if (airports.size() <= 0) return;
+
+                            String city = airports.get(0).city.id;
+                            Utils.get().cityId = city;
+                        } catch (Throwable e) {}
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("asd","That didn't work!");
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
     }
 
     @Override
@@ -71,16 +132,6 @@ public class MenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            /*new AlertDialog.Builder(this)
-                .setMessage(getString(R.string.exit_message))
-                .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        MenuActivity.super.onBackPressed();
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show();*/
             drawer.openDrawer(GravityCompat.START);
         }
     }

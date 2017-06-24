@@ -27,4 +27,5 @@
     <string name="close">close</string>
     <string name="cancel">cancel</string>
     <string name="unsuscribe_action">Unsuscribe</string>
+    <string name="unsuscribe_message">If you unsuscribe, you will stop receiving notifications for this flight.</string>
 </resources>

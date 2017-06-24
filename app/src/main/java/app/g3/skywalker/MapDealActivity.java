@@ -46,7 +46,7 @@ public class MapDealActivity extends AppCompatActivity implements OnMapReadyCall
 
 
         RequestQueue queue = Volley.newRequestQueue(this);
-        String url ="http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from=BUE";
+        String url ="http://hci.it.itba.edu.ar/v1/api/booking.groovy?method=getflightdeals&from="+Utils.get().cityId;
 
         // Request a string response from the provided URL.
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
