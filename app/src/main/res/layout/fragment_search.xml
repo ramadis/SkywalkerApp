@@ -75,6 +75,17 @@
             android:layout_below="@+id/input_layout_password"
             android:layout_alignParentEnd="true" />
 
+        <TextView
+            android:text="Ejemplo: Londres o LA2889"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView4"
+            android:layout_below="@+id/input_layout_password"
+            android:layout_alignParentStart="true"
+            android:textColor="?android:attr/textColorHint"
+            android:paddingLeft="5dp"
+            android:textSize="12sp" />
+
     </RelativeLayout>
 
 </FrameLayout>
