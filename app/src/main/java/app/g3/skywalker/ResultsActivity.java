@@ -34,7 +34,7 @@ public class ResultsActivity extends AppCompatActivity {
         RecyclerView rv = (RecyclerView) findViewById(R.id.resultsRV);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
-        ResultsAdapter adapter = new ResultsAdapter(persons);
+        ResultsAdapter adapter = new ResultsAdapter(persons, this);
         rv.setAdapter(adapter);
     }
 }
