@@ -140,22 +140,6 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         SubscriptionsAdapter adapter;
         Button btn;
 
-//        private void showNotification() {
-//            // THIS IS WORKING
-//            final Intent emptyIntent = new Intent();
-//            PendingIntent pendingIntent = PendingIntent.getActivity(adapter.context, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-//
-//            NotificationCompat.Builder mBuilder =
-//                    new NotificationCompat.Builder(adapter.context)
-//                            .setSmallIcon(R.drawable.ic_audiotrack)
-//                            .setContentTitle("My notification")
-//                            .setContentText("Hello World!")
-//                            .setContentIntent(pendingIntent);
-//
-//            NotificationManager notificationManager = (NotificationManager) adapter.context.getSystemService(Context.NOTIFICATION_SERVICE);
-//            notificationManager.notify(1, mBuilder.build());
-//        }
-
         public void onClick(final View v) {
 
             new AlertDialog.Builder(adapter.context)

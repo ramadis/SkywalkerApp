@@ -37,9 +37,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.sromku.simple.storage.SimpleStorage;
+import com.sromku.simple.storage.Storage;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
+import java.io.ObjectInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +53,7 @@ public class MenuActivity extends AppCompatActivity
     Fragment fragment;
     FragmentManager fragmentManager = getFragmentManager(); // For AppCompat use getSupportFragmentManager
     Handler handler;
+    Integer notificationId;
 
 
     @Override
@@ -58,6 +63,7 @@ public class MenuActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         handler = new Handler();
+        notificationId = 0;
 
         // Notification thread
         new Thread(new Runnable() {
@@ -129,12 +135,57 @@ public class MenuActivity extends AppCompatActivity
     private void notificationService() {
         ConnectivityManager cn=(ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nf=cn.getActiveNetworkInfo();
-        if(nf != null && nf.isConnected()==true ) showNotification();
+        if(nf != null && nf.isConnected()==true ) notifySubscriptedFlights();
         else Toast.makeText(this, getString(R.string.not_connected_message), Toast.LENGTH_SHORT).show();
     }
 
-    private void showNotification() {
-        // THIS IS WORKING
+    private void notifySubscriptedFlights() {
+        Storage storage = SimpleStorage.getInternalStorage(this);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) return;
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        if (!fileExists) return;
+        try {
+            byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            List<Flight> newFlights = (List<Flight>) si.readObject();
+
+            for( Flight f: newFlights) {
+                getFlightStatus(f);
+            }
+        } catch(Throwable e) {}
+    }
+
+    public void getFlightStatus(Flight flight) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        String url ="http://hci.it.itba.edu.ar/v1/api/status.groovy?method=getflightstatus&airline_id=" + flight.airline.id + "&flight_number=" + flight.number;
+
+        // Request a string response from the provided URL.
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject root = new JSONObject(response);
+                            String flightString = root.getJSONObject("status").toString();
+                            Flight f = new Gson().fromJson(flightString, Flight.class);
+                            showNotification(f);
+                        } catch (Throwable e) {}
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("asd","That didn't work!");
+            }
+        });
+
+        // Add the request to the RequestQueue.
+        queue.add(stringRequest);
+        // ENDPOINT: http://hci.it.itba.edu.ar/v1/api/status.groovy?method=getflightstatus&airline_id=8R&flight_number=8700
+    }
+
+    private void showNotification(Flight flight) {
         final Intent emptyIntent = new Intent();
         PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -146,7 +197,7 @@ public class MenuActivity extends AppCompatActivity
                         .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
-        notificationManager.notify(1, mBuilder.build());
+        notificationManager.notify(notificationId++, mBuilder.build());
     }
 
     public void getCity(String latitude, String longitude) {
