@@ -4,43 +4,41 @@
     android:layout_height="match_parent"
     tools:context="app.g3.skywalker.SearchFragment">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/autoCompleteTextView"
+            android:layout_alignParentStart="true"
+            android:id="@+id/dealViewRV" />
+
         <TextView
+            android:text="@string/search_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="14dp"
             android:id="@+id/textView3"
-            tools:text="@string/search_title"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textStyle="normal|bold"
+            android:textAlignment="center"
             android:textSize="18sp"
-            android:textColor="@color/colorAccent"
-            android:textAlignment="center" />
-
-        <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:layout_width="0px"
-            android:layout_height="0px"/>
-
+            android:textColor="?attr/colorAccent"
+            android:textStyle="normal|bold"
+            android:layout_marginTop="30dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
 
         <AutoCompleteTextView
             android:layout_width="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="26dp"
             android:id="@+id/autoCompleteTextView"
             android:imeOptions="flagNoExtractUi"
             android:nextFocusUp="@+id/autoCompleteTextView"
             android:nextFocusLeft="@+id/autoCompleteTextView"
             android:completionHint="@string/search_placeholder"
             android:hint="@string/search_placeholder"
-            android:layout_toStartOf="@+id/button"
             android:layout_height="wrap_content"
             android:textSize="24sp"
             android:textStyle="normal|bold"
@@ -48,19 +46,10 @@
             android:capitalize="sentences"
             tools:ignore="UnknownId"
             android:maxLines="1"
-            android:ellipsize="end"/>
+            android:ellipsize="end"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentStart="true" />
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/dealsListLayoutContainer">
-
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/dealViewRV" />
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </FrameLayout>
