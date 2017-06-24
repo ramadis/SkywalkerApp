@@ -53,8 +53,8 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         PersonViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardResultElement);
-            personName = (TextView)itemView.findViewById(R.id.person_name);
-            personAge = (TextView)itemView.findViewById(R.id.person_age);
+            personName = (TextView)itemView.findViewById(R.id.airline_name);
+            personAge = (TextView)itemView.findViewById(R.id.from_to_shorts);
         }
     }
 
