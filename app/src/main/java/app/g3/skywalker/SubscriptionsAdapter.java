@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,7 +43,7 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
     @Override
     public SubscriptionsAdapter.FlightViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_result, viewGroup, false);
-        SubscriptionsAdapter.FlightViewHolder pvh = new SubscriptionsAdapter.FlightViewHolder(v);
+        SubscriptionsAdapter.FlightViewHolder pvh = new SubscriptionsAdapter.FlightViewHolder(v, this);
         return pvh;
     }
 
@@ -57,6 +58,7 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
             ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
             ObjectInputStream si = new ObjectInputStream(bi);
             List<Flight> newFlights = (List<Flight>) si.readObject();
+            flights.clear();
             flights.addAll(newFlights);
             notifyDataSetChanged();
         } catch(Throwable e) {}
@@ -73,7 +75,20 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
             ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
             ObjectInputStream si = new ObjectInputStream(bi);
             List<Flight> newFlights = (List<Flight>) si.readObject();
-            // TODO: Remove element
+            Flight toDeleteFlight = null;
+
+            for(Flight f: newFlights) {
+                String fId = f.airline.id + f.number.toString();
+
+                if (fId.equals(id)) {
+                    toDeleteFlight = f;
+                    break;
+                }
+            }
+
+            if (toDeleteFlight == null) return;
+
+            newFlights.remove(toDeleteFlight);
             storeSubscriptions(storage, newFlights);
         } catch(Throwable e) {}
     }
@@ -116,15 +131,12 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         CardView cv;
         TextView airlineName;
         TextView fromToShort;
+        SubscriptionsAdapter adapter;
         Button btn;
 
         public void onClick(View v) {
-
-            btn.setText("DESUSCRIBIRSE");
-            btn.setBackgroundColor(Color.parseColor("#d8ad56"));
-            // TODO: Lookup how the hell to reference this methods.
-            removeSubscription(v.getTag().toString());
-            getSubscriptions();
+            adapter.removeSubscription(v.getTag().toString());
+            adapter.getSubscriptions();
         }
 
         FlightViewHolder(View itemView) {
@@ -134,6 +146,16 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
             btn = (Button) cv.findViewById(R.id.subscribe_button);
             airlineName = (TextView)itemView.findViewById(R.id.airline_name);
             fromToShort = (TextView)itemView.findViewById(R.id.from_to_shorts);
+        }
+
+        FlightViewHolder(View itemView, SubscriptionsAdapter adapter) {
+            // TODO: Receive also state for the button to know which text and style to show?
+            super(itemView);
+            cv = (CardView) itemView.findViewById(R.id.cardResultElement);
+            btn = (Button) cv.findViewById(R.id.subscribe_button);
+            airlineName = (TextView)itemView.findViewById(R.id.airline_name);
+            fromToShort = (TextView)itemView.findViewById(R.id.from_to_shorts);
+            this.adapter = adapter;
         }
     }
 
