@@ -31,7 +31,7 @@ public class SubscriptionsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private List<Person> persons;
+    private List<Flight> flights;
     private String lastTitle;
 
     private OnFragmentInteractionListener mListener;
@@ -68,12 +68,12 @@ public class SubscriptionsFragment extends Fragment {
     }
 
     private void initializeData() {
-        persons = new ArrayList<>();
-        persons.add(new Person("Emma Wilson", "23 years old"));
+        flights = new ArrayList<>();
+/*        persons.add(new Person("Emma Wilson", "23 years old"));
         persons.add(new Person("Lavery Maiss", "25 years old"));
         persons.add(new Person("Lillie Watts", "35 years old"));
         persons.add(new Person("Lillie Watt=s", "35 years old"));
-        persons.add(new Person("Lillie Wat", "35 years old"));
+        persons.add(new Person("Lillie Wat", "35 years old"));*/
     }
 
     @Override
@@ -95,8 +95,13 @@ public class SubscriptionsFragment extends Fragment {
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         rv.setLayoutManager(llm);
 
+        // create adapter
+        SubscriptionsAdapter adapter = new SubscriptionsAdapter(flights, getActivity());
+
+        // Get subscriptions from storage
+        adapter.getSubscriptions();
+
         // Attach adapter
-        SubscriptionsAdapter adapter = new SubscriptionsAdapter(persons);
         rv.setAdapter(adapter);
 
         return rootView;

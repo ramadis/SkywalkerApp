@@ -66,7 +66,7 @@ public class MapDealActivity extends AppCompatActivity implements OnMapReadyCall
                             for (DealRequest d: newDealsRequest) {
                                 Deal deal = new Deal(1, d.city, d.price);
                                 LatLng m = new LatLng(deal.getCity().latitude, deal.getCity().longitude);
-                                mMap.addMarker(new MarkerOptions().position(m).title("Viaja a " + deal.getCity().name + " a solo USD" + deal.getPrice()));
+                                mMap.addMarker(new MarkerOptions().position(m).title("Viaja a " + deal.getCity().name.split(",")[0] + " a solo USD" + deal.getPrice()));
                             }
 
                         } catch (Throwable e) {}

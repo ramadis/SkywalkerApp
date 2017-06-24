@@ -18,9 +18,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
+import com.sromku.simple.storage.SimpleStorage;
+import com.sromku.simple.storage.Storage;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayOutputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -60,8 +64,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         boolean isFlight = m.matches();
 
         if (isFlight) {
-            String airlineId = this.searchValue.substring(0,2);
-            String flightNumber = this.searchValue.substring(2);
+            String airlineId = this.searchValue.substring(0,2).toUpperCase();
+            String flightNumber = this.searchValue.substring(2).trim();
             Log.d("airline", airlineId);
             Log.d("flight", flightNumber);
             getResultsWithFlight(flightNumber, airlineId);
@@ -73,6 +77,22 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_result, viewGroup, false);
         FlightViewHolder pvh = new FlightViewHolder(v);
         return pvh;
+    }
+
+    public void storeResults(List<Flight> flights) {
+        Storage storage = SimpleStorage.getInternalStorage(context);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) storage.createDirectory("Skywalker");
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        if (!fileExists) {
+            try {
+                ByteArrayOutputStream bo = new ByteArrayOutputStream();
+                ObjectOutputStream so = new ObjectOutputStream(bo);
+                so.writeObject(flights);
+                so.flush();
+                storage.createFile("Skywalker", "Subscriptions", bo.toString());
+            } catch(Throwable e) {}
+        }
     }
 
     public void getResultsWithFlight(String flightId, String airlineId) {
@@ -92,6 +112,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
                             Flight flight = new Gson().fromJson(flightString, Flight.class);
                             List<Flight> newFlights = new ArrayList<>();
                             newFlights.add(flight);
+
+                            storeResults(newFlights);
+
                             flights.addAll(newFlights);
                             notifyDataSetChanged();
                         } catch (Throwable e) {}
