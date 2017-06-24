@@ -53,18 +53,48 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
         if (!fileExists) return;
         try {
-            Log.d("Reading", "started");
             byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
-            Log.d("Reading", "bytes read");
             ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
-            Log.d("Reading", "bytes input casted");
             ObjectInputStream si = new ObjectInputStream(bi);
-            Log.d("Reading", "stream generated");
             List<Flight> newFlights = (List<Flight>) si.readObject();
             flights.addAll(newFlights);
             notifyDataSetChanged();
+        } catch(Throwable e) {}
+    }
+
+    public void removeSubscription(String id) {
+        Storage storage = SimpleStorage.getInternalStorage(context);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) return;
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        if (!fileExists) return;
+        try {
+            byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            List<Flight> newFlights = (List<Flight>) si.readObject();
+            // TODO: Remove element
+            storeSubscriptions(storage, newFlights);
+        } catch(Throwable e) {}
+    }
+
+    public void storeSubscriptions(Storage storage, List<Flight> flights) {
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) storage.createDirectory("Skywalker");
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        Log.d("Existe", fileExists? "existe" : "No");
+        if(fileExists) storage.deleteFile("Skywalker", "Subscriptions");
+
+        try {
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream so = new ObjectOutputStream(bo);
+            so.writeObject(flights);
+            //Log.d("sofar", "sogoodd");
+            //so.flush();
+            storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
+            //Log.d("Creado", "creado");
         } catch(Throwable e) {
-            Log.d("Reading", "failed: " + e.toString());
+            Log.d("error", e.toString());
         }
     }
 
@@ -74,6 +104,7 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         personViewHolder.airlineName.setText(flights.get(i).airline.name);
         personViewHolder.fromToShort.setText(flights.get(i).departure.airport.id + " to " + flights.get(i).arrival.airport.id);
         personViewHolder.btn.setOnClickListener(personViewHolder);
+        personViewHolder.btn.setTag(flights.get(i).airline.id + flights.get(i).number.toString());
     }
 
     @Override
@@ -88,9 +119,12 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         Button btn;
 
         public void onClick(View v) {
+
             btn.setText("DESUSCRIBIRSE");
             btn.setBackgroundColor(Color.parseColor("#d8ad56"));
-            Log.d("test", "test");
+            // TODO: Lookup how the hell to reference this methods.
+            removeSubscription(v.getTag().toString());
+            getSubscriptions();
         }
 
         FlightViewHolder(View itemView) {

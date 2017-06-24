@@ -98,7 +98,6 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         } catch(Throwable e) {
             Log.d("error", e.toString());
         }
-
     }
 
     public void getResultsWithFlight(String flightId, String airlineId) {
