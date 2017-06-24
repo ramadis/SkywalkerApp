@@ -119,12 +119,9 @@ public class MenuActivity extends AppCompatActivity
                     .commit();
 
         } else if (id == R.id.nav_gallery) {
-            Intent myIntent = new Intent(MenuActivity.this, ResultsActivity.class);
+            Intent myIntent = new Intent(MenuActivity.this, MapDealActivity.class);
             //myIntent.putExtra("key", value); //Optional parameters
             MenuActivity.this.startActivity(myIntent);
-            /*Intent myIntent = new Intent(MenuActivity.this, MapDealActivityActivity.class);
-            //myIntent.putExtra("key", value); //Optional parameters
-            MenuActivity.this.startActivity(myIntent);*/
 
         } else if (id == R.id.nav_slideshow) {
             fragment = new SubscriptionsFragment();
