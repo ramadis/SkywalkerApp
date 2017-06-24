@@ -16,6 +16,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
@@ -66,7 +68,10 @@ public class MapDealActivity extends AppCompatActivity implements OnMapReadyCall
                             for (DealRequest d: newDealsRequest) {
                                 Deal deal = new Deal(1, d.city, d.price);
                                 LatLng m = new LatLng(deal.getCity().latitude, deal.getCity().longitude);
-                                mMap.addMarker(new MarkerOptions().position(m).title("Viaja a " + deal.getCity().name.split(",")[0] + " a solo USD" + deal.getPrice()));
+
+                                Integer hue = ((Double) ((120/1500.0) * Math.min(deal.getPrice().intValue(), 1500.0))).intValue();
+                                MarkerOptions marker = new MarkerOptions().icon(BitmapDescriptorFactory.defaultMarker(hue)).position(m).title("Viaja a " + deal.getCity().name.split(",")[0] + " a solo USD" + deal.getPrice());
+                                mMap.addMarker(marker);
                             }
 
                         } catch (Throwable e) {}

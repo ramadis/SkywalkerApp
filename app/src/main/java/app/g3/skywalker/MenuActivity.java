@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.MapView;
 import com.google.gson.Gson;
 import com.sromku.simple.storage.SimpleStorage;
 import com.sromku.simple.storage.Storage;
@@ -64,6 +65,21 @@ public class MenuActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         handler = new Handler();
         notificationId = 0;
+
+        // Fixing Later Map loading Delay
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    MapView mv = new MapView(getApplicationContext());
+                    mv.onCreate(null);
+                    mv.onPause();
+                    mv.onDestroy();
+                }catch (Exception ignored){
+
+                }
+            }
+        }).start();
 
         // Notification thread
         new Thread(new Runnable() {
