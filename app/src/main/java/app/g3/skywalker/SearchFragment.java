@@ -129,7 +129,6 @@ public class SearchFragment extends Fragment {
             public void onClick(View v) {
                 Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
                 String value = ((AutoCompleteTextView) rootView.findViewById(R.id.searchField)).getText().toString();
-                Log.d("test", value);
                 myIntent.putExtra("value", value);
                 getActivity().startActivity(myIntent);
             }

@@ -29,6 +29,9 @@ public class ResultsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
 
+        Bundle b = getIntent().getExtras();
+        String searchValue = b.getString("value");
+
         initializeData();
 
         RecyclerView rv = (RecyclerView) findViewById(R.id.resultsRV);
