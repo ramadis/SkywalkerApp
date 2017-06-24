@@ -113,6 +113,8 @@ public class SearchFragment extends Fragment {
         mListener = null;
     }
 
+    //ENDPOINT: http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines
+
     private void initializeData() {
         deals = new ArrayList<>();
         /*deals.add(new Deal(1,"Emma Wilson", 500.0));

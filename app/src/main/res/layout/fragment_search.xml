@@ -11,13 +11,6 @@
         android:layout_height="match_parent">
 
 
-        <android.support.v7.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/dealViewRV"
-            android:layout_below="@+id/input_layout_password"
-            android:layout_alignParentStart="true" />
-
         <TextView
             android:text="@string/search_title"
             android:layout_width="match_parent"
@@ -25,7 +18,7 @@
             android:id="@+id/textView3"
             android:textAlignment="center"
             android:textSize="18sp"
-            android:textColor="?attr/colorAccent"
+            android:textColor="?attr/actionMenuTextColor"
             android:textStyle="normal|bold"
             android:layout_marginTop="16dp"
             android:layout_alignParentTop="true"
@@ -36,7 +29,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView3"
-            android:layout_alignParentStart="true"
             android:layout_marginTop="10dp">
 
             <LinearLayout
@@ -63,7 +55,25 @@
                 android:ellipsize="end"
                 android:layout_below="@+id/textView3"
                 android:layout_alignParentStart="true" />
+
         </android.support.design.widget.TextInputLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/dealViewRV"
+            android:layout_below="@+id/button2"
+            android:layout_alignParentStart="true" />
+
+        <Button
+            android:text="@string/search_action"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            style="@style/Base.Widget.AppCompat.Button.Colored"
+            android:layout_below="@+id/input_layout_password"
+            android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
 

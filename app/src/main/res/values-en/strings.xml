@@ -20,4 +20,6 @@
     <string name="subscribe_action">Subscribe</string>
     <string name="title_activity_results">Results</string>
     <string name="price_deal_tag">ONLY U$D</string>
+    <string name="close">close</string>
+    <string name="cancel">cancel</string>
 </resources>

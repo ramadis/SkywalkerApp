@@ -4,7 +4,7 @@
     <string name="action_settings">Configuración</string>
     <string name="navigation_drawer_close">Cerrar menú</string>
     <string name="navigation_drawer_open">Abrir menú</string>
-    <string name="search_title">¡Encontrá los vuelos que más te interesan!</string>
+    <string name="search_title">¡Encuentra los vuelos que más te interesan!</string>
     <string name="search_placeholder">Destino o número de vuelo</string>
     <string name="menu_options">Menú de opciones</string>
     <string name="search_action">Buscar</string>
@@ -20,4 +20,6 @@
     <string name="subscribe_action">Subscribirse</string>
     <string name="title_activity_results">Resultados</string>
     <string name="price_deal_tag">SOLO U$D</string>
+    <string name="close">cerrar</string>
+    <string name="cancel">cancelar</string>
 </resources>

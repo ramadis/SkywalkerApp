@@ -73,13 +73,13 @@ public class MenuActivity extends AppCompatActivity
         } else {
             new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.exit_message))
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         MenuActivity.super.onBackPressed();
                     }
                 })
-                .setNegativeButton(R.string.no, null)
+                .setNegativeButton(R.string.cancel, null)
                 .show();
         }
     }
