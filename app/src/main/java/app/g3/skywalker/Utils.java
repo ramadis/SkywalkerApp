@@ -7,8 +7,10 @@ package app.g3.skywalker;
 public class Utils {
     private static Utils instance;
     String cityId;
+    Integer interval;
 
     private Utils(){
+        this.interval = 5;
         this.cityId = "BUE";
     }
 

@@ -2,13 +2,18 @@ package app.g3.skywalker;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -23,6 +28,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -42,6 +48,7 @@ public class MenuActivity extends AppCompatActivity
 
     Fragment fragment;
     FragmentManager fragmentManager = getFragmentManager(); // For AppCompat use getSupportFragmentManager
+    Handler handler;
 
 
     @Override
@@ -50,6 +57,31 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        handler = new Handler();
+
+        // Notification thread
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // TODO Auto-generated method stub
+                while (true) {
+                    try {
+                        Thread.sleep(Utils.get().interval * 1000);
+                        handler.post(new Runnable() {
+
+                            @Override
+                            public void run() {
+                                // TODO Auto-generated method stub
+                                // Write your code here to update the UI.
+                                notificationService();
+                            }
+                        });
+                    } catch (Exception e) {
+                        // TODO: handle exception
+                    }
+                }
+            }
+        }).start();
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +124,29 @@ public class MenuActivity extends AppCompatActivity
         fragmentManager.beginTransaction()
                 .replace(R.id.content_menu, fragment)
                 .commit();
+    }
+
+    private void notificationService() {
+        ConnectivityManager cn=(ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo nf=cn.getActiveNetworkInfo();
+        if(nf != null && nf.isConnected()==true ) showNotification();
+        else Toast.makeText(this, getString(R.string.not_connected_message), Toast.LENGTH_SHORT).show();
+    }
+
+    private void showNotification() {
+        // THIS IS WORKING
+        final Intent emptyIntent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_audiotrack)
+                        .setContentTitle("My notification")
+                        .setContentText("Hello World!")
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        notificationManager.notify(1, mBuilder.build());
     }
 
     public void getCity(String latitude, String longitude) {
