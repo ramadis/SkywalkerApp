@@ -78,7 +78,7 @@ public class SearchFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_search, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_search, container, false);
 
         initializeData();
 
@@ -94,6 +94,7 @@ public class SearchFragment extends Fragment {
         adapter.getDeals();
         rv.setAdapter(adapter);
 
+        // Search button behaviour
         AutoCompleteTextView field = (AutoCompleteTextView) rootView.findViewById(R.id.searchField);
         final Button btn = (Button) rootView.findViewById(R.id.searchButtonAction);
         btn.setEnabled(false);
@@ -123,6 +124,17 @@ public class SearchFragment extends Fragment {
             }
         });
 
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
+                String value = ((AutoCompleteTextView) rootView.findViewById(R.id.searchField)).getText().toString();
+                Log.d("test", value);
+                myIntent.putExtra("value", value);
+                getActivity().startActivity(myIntent);
+            }
+        });
+
         return rootView;
     }
 
@@ -148,14 +160,6 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
-    }
-
-    public void onClick() {
-        Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
-        String value = getActivity().findViewById(R.id.searchField).toString();
-        Log.d("test", value);
-        myIntent.putExtra("value", value);
-        getActivity().startActivity(myIntent);
     }
 
     //ENDPOINT: http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines
