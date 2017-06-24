@@ -71,7 +71,7 @@ public class MenuActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            new AlertDialog.Builder(this)
+            /*new AlertDialog.Builder(this)
                 .setMessage(getString(R.string.exit_message))
                 .setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
                     @Override
@@ -80,7 +80,8 @@ public class MenuActivity extends AppCompatActivity
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
-                .show();
+                .show();*/
+            drawer.openDrawer(GravityCompat.START);
         }
     }
 
