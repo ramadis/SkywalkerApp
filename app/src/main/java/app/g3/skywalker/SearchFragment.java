@@ -2,16 +2,24 @@ package app.g3.skywalker;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 /**
@@ -86,6 +94,35 @@ public class SearchFragment extends Fragment {
         adapter.getDeals();
         rv.setAdapter(adapter);
 
+        AutoCompleteTextView field = (AutoCompleteTextView) rootView.findViewById(R.id.searchField);
+        final Button btn = (Button) rootView.findViewById(R.id.searchButtonAction);
+        btn.setEnabled(false);
+
+        field.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                Pattern p = Pattern.compile("(^[a-zA-Z]{2} ?\\d{4,6}$)|(^[a-zA-Z ,.]+$)");
+                Matcher m = p.matcher(s.toString());
+                boolean b = m.matches();
+
+                //btn.setEnabled(s.toString().trim().length()!=0);
+                btn.setEnabled(b);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
         return rootView;
     }
 
@@ -111,6 +148,14 @@ public class SearchFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    public void onClick() {
+        Intent myIntent = new Intent(getActivity(), ResultsActivity.class);
+        String value = getActivity().findViewById(R.id.searchField).toString();
+        Log.d("test", value);
+        myIntent.putExtra("value", value);
+        getActivity().startActivity(myIntent);
     }
 
     //ENDPOINT: http://hci.it.itba.edu.ar/v1/api/misc.groovy?method=getairlines
