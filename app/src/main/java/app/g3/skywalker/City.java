@@ -12,6 +12,7 @@ public class City {
     public Country country;
 
     public String toString(){
-        return name;
+        String[] parts = name.split(",");
+        return parts[0];
     }
 }
