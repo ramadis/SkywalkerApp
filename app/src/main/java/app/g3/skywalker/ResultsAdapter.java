@@ -1,5 +1,6 @@
 package app.g3.skywalker;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
@@ -23,7 +24,9 @@ import com.sromku.simple.storage.Storage;
 
 import org.json.JSONObject;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +78,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
     @Override
     public FlightViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_result, viewGroup, false);
-        FlightViewHolder pvh = new FlightViewHolder(v);
+        FlightViewHolder pvh = new FlightViewHolder(v, this);
         return pvh;
     }
 
@@ -97,6 +100,97 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
             //Log.d("Creado", "creado");
         } catch(Throwable e) {
             Log.d("error", e.toString());
+        }
+    }
+
+    public void unsuscribeFromCode(String id) {
+        Storage storage = SimpleStorage.getInternalStorage(context);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) storage.createDirectory("Skywalker");
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        if (!fileExists) return;
+
+        try {
+            byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            List<Flight> newFlights = (List<Flight>) si.readObject();
+
+            Flight toDeleteFlight = null;
+            for(Flight f: newFlights) {
+                String fId = f.airline.id + f.number.toString();
+
+                if (fId.equals(id)) {
+                    toDeleteFlight = f;
+                    break;
+                }
+            }
+            if (toDeleteFlight == null) return;
+
+            storage.deleteFile("Skywalker", "Subscriptions");
+
+            newFlights.remove(toDeleteFlight);
+            ByteArrayOutputStream bo = new ByteArrayOutputStream();
+            ObjectOutputStream so = new ObjectOutputStream(bo);
+            so.writeObject(newFlights);
+            storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
+        } catch(Throwable e) {
+            Log.d("error", e.toString());
+        }
+    }
+
+    public void storeResultFromCode(String id) {
+        Storage storage = SimpleStorage.getInternalStorage(context);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) storage.createDirectory("Skywalker");
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        // TODO: if the file exists, load it and update arraylist.
+
+        // Find the flight to add
+        Flight toAddFlight = null;
+        for(Flight f: flights) {
+            String fId = f.airline.id + f.number.toString();
+
+            if (fId.equals(id)) {
+                toAddFlight = f;
+                break;
+            }
+        }
+        if (toAddFlight == null) return;
+
+
+        if (fileExists) {
+            try {
+                byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+                ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+                ObjectInputStream si = new ObjectInputStream(bi);
+                List<Flight> newFlights = (List<Flight>) si.readObject();
+
+                storage.deleteFile("Skywalker", "Subscriptions");
+
+                newFlights.add(toAddFlight);
+                ByteArrayOutputStream bo = new ByteArrayOutputStream();
+                ObjectOutputStream so = new ObjectOutputStream(bo);
+                so.writeObject(newFlights);
+                storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
+            } catch(Throwable e) {
+                Log.d("error", e.toString());
+            }
+        }
+
+        if (!fileExists) {
+            try {
+                List<Flight> newFlights = new ArrayList<>();
+
+                newFlights.add(toAddFlight);
+
+                ByteArrayOutputStream bo = new ByteArrayOutputStream();
+                ObjectOutputStream so = new ObjectOutputStream(bo);
+                so.writeObject(newFlights);
+                storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
+            } catch(Throwable e) {
+                Log.d("error", e.toString());
+            }
         }
     }
 
@@ -126,7 +220,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
                             List<Flight> newFlights = new ArrayList<>();
                             newFlights.add(flight);
 
-                            storeResults(newFlights);
+                            //storeResults(newFlights);
 
                             flights.addAll(newFlights);
                             notifyDataSetChanged();
@@ -149,6 +243,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         Log.d("name", flights.get(i).airline.name);
         personViewHolder.airlineName.setText(flights.get(i).airline.name);
         personViewHolder.fromToShort.setText(flights.get(i).departure.airport.id + " to " + flights.get(i).arrival.airport.id);
+        personViewHolder.flightCode.setText(flights.get(i).airline.id + flights.get(i).number);
         personViewHolder.btn.setOnClickListener(personViewHolder);
     }
 
@@ -161,25 +256,32 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         CardView cv;
         TextView airlineName;
         TextView fromToShort;
+        TextView flightCode;
         boolean btnState;
         Button btn;
+        ResultsAdapter context;
 
         public void onClick(View v) {
-            // TODO: reference R.string from here?
             btnState = !btnState;
-            btn.setText(btnState ? "DESUSCRIBIRSE" : "SUSCRIBIRSE");
+            btn.setText(btnState ? context.context.getString(R.string.unsuscribe_action) : context.context.getString(R.string.subscribe_action) );
             btn.setSelected(btnState);
-            // TODO: Remove flight
+            if (btnState) {
+                context.unsuscribeFromCode(flightCode.getText().toString());
+            } else {
+                context.storeResultFromCode(flightCode.getText().toString());
+            }
         }
 
-        FlightViewHolder(View itemView) {
+        FlightViewHolder(View itemView, ResultsAdapter context) {
             // TODO: Receive also state for the button to know which text and style to show?
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardResultElement);
             btn = (Button) cv.findViewById(R.id.subscribe_button);
             airlineName = (TextView)itemView.findViewById(R.id.airline_name);
             fromToShort = (TextView)itemView.findViewById(R.id.from_to_shorts);
+            flightCode = (TextView)itemView.findViewById(R.id.flightCode);
             btnState = false;
+            this.context = context;
         }
     }
 

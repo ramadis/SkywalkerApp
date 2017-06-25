@@ -24,7 +24,7 @@
                 android:textStyle="normal|bold"
                 android:textSize="30sp"
                 android:layout_below="@+id/airline_name"
-                android:layout_alignEnd="@+id/textView7" />
+                android:layout_alignEnd="@+id/flightCode" />
 
             <TextView
                 android:text="LATAM"
@@ -50,7 +50,7 @@
                 android:text="18:00 todos los jueves"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView7"
+                android:id="@+id/flightCode"
                 android:layout_marginEnd="25dp"
                 android:textAlignment="viewEnd"
                 android:layout_above="@+id/from_to_shorts"
