@@ -41,19 +41,33 @@ import java.util.regex.Pattern;
 public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightViewHolder>{
 
     List<Flight> flights;
+    List<Flight> subscribed;
     Context context;
     String searchValue;
-
-    // TODO: Receive context to get resources.
-    ResultsAdapter(List<Flight> flights, Context context){
-        this.flights = flights;
-        this.context = context;
-    }
 
     ResultsAdapter(List<Flight> flights, Context context, String searchValue){
         this.flights = flights;
         this.context = context;
         this.searchValue = searchValue;
+        subscribed = new ArrayList<>();
+    }
+
+    public void getSubscriptions() {
+        Storage storage = SimpleStorage.getInternalStorage(context);
+        boolean dirExists = storage.isDirectoryExists("Skywalker");
+        if (!dirExists) return;
+        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
+        if (!fileExists) return;
+        try {
+            byte[] bytes = storage.readFile("Skywalker", "Subscriptions");
+            ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
+            ObjectInputStream si = new ObjectInputStream(bi);
+            List<Flight> newFlights = (List<Flight>) si.readObject();
+            if (newFlights.size() <= 0) return;
+            subscribed = newFlights;
+        } catch(Throwable e) {
+            Log.d("error", e.toString());
+        }
     }
 
     @Override
@@ -82,31 +96,10 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         return pvh;
     }
 
-    public void storeResults(List<Flight> flights) {
-        Storage storage = SimpleStorage.getInternalStorage(context);
-        boolean dirExists = storage.isDirectoryExists("Skywalker");
-        if (!dirExists) storage.createDirectory("Skywalker");
-        boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
-        Log.d("Existe", fileExists? "existe" : "No");
-        if(fileExists) storage.deleteFile("Skywalker", "Subscriptions");
-
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            ObjectOutputStream so = new ObjectOutputStream(bo);
-            so.writeObject(flights);
-            //Log.d("sofar", "sogoodd");
-            //so.flush();
-            storage.createFile("Skywalker", "Subscriptions", bo.toByteArray());
-            //Log.d("Creado", "creado");
-        } catch(Throwable e) {
-            Log.d("error", e.toString());
-        }
-    }
-
     public void unsuscribeFromCode(String id) {
         Storage storage = SimpleStorage.getInternalStorage(context);
         boolean dirExists = storage.isDirectoryExists("Skywalker");
-        if (!dirExists) storage.createDirectory("Skywalker");
+        if (!dirExists) return;
         boolean fileExists = storage.isFileExist("Skywalker", "Subscriptions");
         if (!fileExists) return;
 
@@ -129,7 +122,12 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
 
             storage.deleteFile("Skywalker", "Subscriptions");
 
+            Log.d("toDeleteFlight", String.valueOf(toDeleteFlight != null)); // true
+            Log.d("Size", String.valueOf(newFlights.size())); // x>1
+
+
             newFlights.remove(toDeleteFlight);
+            Log.d("Size", String.valueOf(newFlights.size())); // x-1;
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             ObjectOutputStream so = new ObjectOutputStream(bo);
             so.writeObject(newFlights);
@@ -166,6 +164,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
                 ObjectInputStream si = new ObjectInputStream(bi);
                 List<Flight> newFlights = (List<Flight>) si.readObject();
 
+                if (newFlights.contains(toAddFlight)) return;
+
                 storage.deleteFile("Skywalker", "Subscriptions");
 
                 newFlights.add(toAddFlight);
@@ -194,6 +194,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         }
     }
 
+    // Load single flight into results list
     public void getResultsWithFlight(String flightId, String airlineId) {
         RequestQueue queue = Volley.newRequestQueue(this.context);
         String url ="http://hci.it.itba.edu.ar/v1/api/status.groovy?method=getflightstatus&airline_id=" + airlineId + "&flight_number=" + flightId;
@@ -213,6 +214,9 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
                                 ((ResultsActivity) context).findViewById(R.id.resultsRV).setVisibility(View.GONE);
                                 return;
                             }
+
+                            // If there are results, load alredy subscribed flights into subscriptions.
+                            getSubscriptions();
 
                             String flightString = root.getJSONObject("status").toString();
                             Flight flight = new Gson().fromJson(flightString, Flight.class);
@@ -245,6 +249,10 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         personViewHolder.fromToShort.setText(flights.get(i).departure.airport.id + " to " + flights.get(i).arrival.airport.id);
         personViewHolder.flightCode.setText(flights.get(i).airline.id + flights.get(i).number);
         personViewHolder.btn.setOnClickListener(personViewHolder);
+
+        if (subscribed.contains(flights.get(i))) {
+            personViewHolder.toggleButton();
+        }
     }
 
     @Override
@@ -261,15 +269,19 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         Button btn;
         ResultsAdapter context;
 
-        public void onClick(View v) {
+        public void toggleButton() {
             btnState = !btnState;
             btn.setText(btnState ? context.context.getString(R.string.unsuscribe_action) : context.context.getString(R.string.subscribe_action) );
             btn.setSelected(btnState);
             if (btnState) {
-                context.unsuscribeFromCode(flightCode.getText().toString());
-            } else {
                 context.storeResultFromCode(flightCode.getText().toString());
+            } else {
+                context.unsuscribeFromCode(flightCode.getText().toString());
             }
+        }
+
+        public void onClick(View v) {
+            toggleButton();
         }
 
         FlightViewHolder(View itemView, ResultsAdapter context) {

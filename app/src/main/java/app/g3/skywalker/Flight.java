@@ -13,4 +13,13 @@ public class Flight implements Serializable {
     String status;
     Checkpoint departure;
     Checkpoint arrival;
+
+    @Override
+    public boolean equals(Object f) {
+        if(f instanceof Flight) {
+            Flight flight = (Flight) f;
+            return flight.id.equals(this.id);
+        }
+        return false;
+    }
 }
