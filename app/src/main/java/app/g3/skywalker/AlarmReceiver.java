@@ -224,7 +224,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
                         //.setLargeIcon(bm)
-                        .setSmallIcon(R.drawable.ic_audiotrack)
+                        .setSmallIcon(R.drawable.ic_plane)
                         .setStyle(style)
                         .setContentTitle(context.getString(R.string.the_flight) + " " + newFlight.airline.id + newFlight.number.toString() + " " + context.getString(R.string.modified_message))
                         .setContentText(message)
