@@ -45,6 +45,7 @@ public class ResultsActivity extends AppCompatActivity {
 
         // Hide not flights message
         findViewById(R.id.noResultsMessage).setVisibility(View.GONE);
+        findViewById(R.id.paperPlane).setVisibility(View.GONE);
         findViewById(R.id.resultsRV).setVisibility(View.VISIBLE);
 
         //api call

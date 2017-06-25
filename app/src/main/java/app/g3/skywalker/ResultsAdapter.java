@@ -211,6 +211,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
 
                             if (root.has("error")) {
                                 ((ResultsActivity) context).findViewById(R.id.noResultsMessage).setVisibility(View.VISIBLE);
+                                ((ResultsActivity) context).findViewById(R.id.paperPlane).setVisibility(View.VISIBLE);
                                 ((ResultsActivity) context).findViewById(R.id.resultsRV).setVisibility(View.GONE);
                                 return;
                             }

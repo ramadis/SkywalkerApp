@@ -109,7 +109,8 @@ public class SearchFragment extends Fragment {
         field.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Pattern p = Pattern.compile("(^[a-zA-Z0-9]{2} ?\\d{1,6}$)|(^[a-zA-Z ,.]+$)");
+                String cityRegex = "|(^[a-zA-Z ,.]+$)";
+                Pattern p = Pattern.compile("(^[a-zA-Z0-9]{2} ?\\d{1,6}$)");
                 Matcher m = p.matcher(s.toString());
                 boolean b = m.matches();
 
