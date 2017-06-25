@@ -63,7 +63,6 @@ public class MapDealActivity extends AppCompatActivity implements OnMapReadyCall
                             String dealsString = root.getJSONArray("deals").toString();
                             Type listType = new TypeToken<ArrayList<DealRequest>>(){}.getType();
                             List<DealRequest> newDealsRequest = new Gson().fromJson(dealsString, listType);
-                            List<Deal> newDeals = new ArrayList<>();
 
                             for (DealRequest d: newDealsRequest) {
                                 Deal deal = new Deal(1, d.city, d.price);

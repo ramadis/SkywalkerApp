@@ -2,15 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
-    <item
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/action_subscriptions"
         android:icon="@drawable/ic_menu_bell_white"
         android:orderInCategory="100"
         android:title="@string/menu_notifications"
-        app:showAsAction="always"/>
+        app:showAsAction="ifRoom"/>
 </menu>

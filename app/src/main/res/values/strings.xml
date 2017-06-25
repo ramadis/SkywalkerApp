@@ -16,19 +16,12 @@
     <string name="title_activity_map_deal">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
-    <string name="settings_polling_title">Interval between updates</string>
-    <string name="exit_message">Are you sure you want to close Skywalker app?</string>
-    <string name="yes">yes</string>
-    <string name="no">no</string>
     <string name="subscribe_action">Subscribe</string>
     <string name="title_activity_results">Results</string>
     <string name="price_deal_tag">ONLY U$D</string>
-    <string name="close">close</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="unsuscribe_action">Unsuscribe</string>
     <string name="unsuscribe_message">If you unsuscribe, you will stop receiving notifications for this flight.</string>
-    <string name="not_connected_message">Notifications can\'t be shown, check your internet connection.</string>
     <string name="no_results">We couldn\'t find the flight you were looking for. Try again with a different flight.</string>
     <string name="no_suscriptions">It looks like you are not subscribed to any flights yet. Search for a flight and subscribe to get status notifications!</string>
     <string name="notification_message_status">The flight is</string>
@@ -51,4 +44,7 @@
     <string name="minute">Minute</string>
     <string name="search_helper">i.e LA2889</string>
     <string name="notification_message_gate_time">The gate time is now at</string>
+    <string name="image_paper_plane_description">Paper plane</string>
+    <string name="image_city_description">City picture</string>
+    <string name="subscription_title">Right now, you are subscribed to these flights. Unscribe if you want to stop notifications for a flight.</string>
 </resources>

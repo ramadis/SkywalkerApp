@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:text="Ahora mismo estás suscripto a estos vuelos. Desuscríbete si deseas dejar de recibir notificaciones."
+            android:text="@string/subscription_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="23dp"
@@ -34,6 +34,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="@string/image_paper_plane_description"
             app:srcCompat="@drawable/ic_paper_plane"
             android:id="@+id/planeImageSubs"
             android:layout_alignTop="@+id/subscriptionsRV"

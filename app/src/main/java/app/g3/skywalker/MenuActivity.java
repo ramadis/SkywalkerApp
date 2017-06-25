@@ -93,7 +93,7 @@ public class MenuActivity extends AppCompatActivity
         PendingIntent pendingIntent = PendingIntent.getBroadcast(MenuActivity.this, 0, notifyIntent,0);
         AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
         // alarm.setRepeating(AlarmManager.RTC, 0, Utils.get().interval * 60 * 1000, pendingIntent);
-        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + Utils.get().interval, 1000, pendingIntent);
+        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + Utils.get().interval, Utils.get().interval * 60 * 1000, pendingIntent);
 
         /*new Thread(new Runnable() {
             @Override
@@ -149,7 +149,6 @@ public class MenuActivity extends AppCompatActivity
         if (isGPSEnabledboolean) {
             try {
                 Location loc = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-                Utils u = Utils.get();
                 String latitude = ((Double) loc.getLatitude()).toString();
                 String longitude = ((Double) loc.getLongitude()).toString();
                 getCity(latitude, longitude);
@@ -178,7 +177,7 @@ public class MenuActivity extends AppCompatActivity
 
                             String airportsString = root.getJSONArray("airports").toString();
                             Type listType = new TypeToken<ArrayList<Airport>>(){}.getType();
-                            List<Airport> airports = (List<Airport>) new Gson().fromJson(airportsString, listType);
+                            List<Airport> airports = new Gson().fromJson(airportsString, listType);
 
                             if (airports.size() <= 0) return;
 
@@ -227,14 +226,6 @@ public class MenuActivity extends AppCompatActivity
             navigationView.getMenu().getItem(2).setChecked(true);
 
             fragment = new SubscriptionsFragment();
-            fragmentManager.beginTransaction()
-                    .replace(R.id.content_menu, fragment)
-                    .commit();
-        } else if (id == R.id.action_settings) {
-            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-            navigationView.getMenu().getItem(3).setChecked(true);
-
-            fragment = new SettingsFragment();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_menu, fragment)
                     .commit();

@@ -122,12 +122,8 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
 
             storage.deleteFile("Skywalker", "Subscriptions");
 
-            Log.d("toDeleteFlight", String.valueOf(toDeleteFlight != null)); // true
-            Log.d("Size", String.valueOf(newFlights.size())); // x>1
-
 
             newFlights.remove(toDeleteFlight);
-            Log.d("Size", String.valueOf(newFlights.size())); // x-1;
             ByteArrayOutputStream bo = new ByteArrayOutputStream();
             ObjectOutputStream so = new ObjectOutputStream(bo);
             so.writeObject(newFlights);

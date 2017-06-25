@@ -13,18 +13,12 @@
     <string name="menu_deals">Mapa de ofertas</string>
     <string name="menu_settings">Configuración</string>
     <string name="title_activity_map_deal">Mapa de ofertas</string>
-    <string name="settings_polling_title">Tiempo entre actualizaciones</string>
-    <string name="exit_message">¿Estás seguro que quieres cerrar la aplicación?</string>
-    <string name="no">no</string>
-    <string name="yes">si</string>
     <string name="subscribe_action">Subscribirse</string>
     <string name="title_activity_results">Resultados</string>
     <string name="price_deal_tag">SOLO U$D</string>
-    <string name="close">cerrar</string>
     <string name="cancel">cancelar</string>
     <string name="unsuscribe_action">Desuscribirse</string>
     <string name="unsuscribe_message">Si te desuscribes, dejarás de recibir notificaciones para este vuelo.</string>
-    <string name="not_connected_message">No se pueden mostrar notificaciones. Compruebe su conexión a internet.</string>
     <string name="no_results">No pudimos encontrar el vuelo que buscabas. Intenta nuevamente con un vuelo diferente.</string>
     <string name="no_suscriptions">Parece que todavía no te has suscripto a ningún vuelo. ¡Busca uno y suscríbete para recibir notificaciones de su estado!</string>
     <string name="notification_message_status">El vuelo está</string>
@@ -47,4 +41,7 @@
     <string name="minute">Minuto</string>
     <string name="search_helper">Ejemplo: LA2889</string>
     <string name="notification_message_gate_time">El horario de embarque ahora es</string>
+    <string name="image_paper_plane_description">Avión de papel</string>
+    <string name="image_city_description">Foto de una ciudad</string>
+    <string name="subscription_title">Ahora mismo estás suscripto a estos vuelos. Desuscríbete si deseas dejar de recibir notificaciones.</string>
 </resources>

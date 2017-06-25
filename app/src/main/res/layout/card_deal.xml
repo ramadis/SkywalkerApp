@@ -21,6 +21,7 @@
                 app:srcCompat="@drawable/chicago"
                 android:layout_alignParentTop="true"
                 android:scaleType="fitXY"
+                android:contentDescription="@string/image_city_description"
                 android:layout_alignParentStart="true"
                 android:id="@+id/cityImage"
                 android:layout_alignParentEnd="true"

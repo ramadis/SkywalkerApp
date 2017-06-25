@@ -257,6 +257,6 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
         notificationManager.notify(notificationId++, mBuilder.build());
 
-        return shouldUpdate;
+        return true;
     }
 }
