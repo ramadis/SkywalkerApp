@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/subscribe_button"
                 style="@style/Widget.AppCompat.Button.Colored"
+                android:backgroundTint="@drawable/selector_row"
                 android:layout_below="@+id/from_to_shorts"
                 android:layout_alignParentStart="true" />
 

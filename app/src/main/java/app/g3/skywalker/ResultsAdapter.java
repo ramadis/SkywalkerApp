@@ -161,12 +161,15 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
         CardView cv;
         TextView airlineName;
         TextView fromToShort;
+        boolean btnState;
         Button btn;
 
         public void onClick(View v) {
-            btn.setText("DESUSCRIBIRSE");
-            btn.setBackgroundColor(Color.parseColor("#d8ad56"));
-            Log.d("test", "test");
+            // TODO: reference R.string from here?
+            btnState = !btnState;
+            btn.setText(btnState ? "DESUSCRIBIRSE" : "SUSCRIBIRSE");
+            btn.setSelected(btnState);
+            // TODO: Remove flight
         }
 
         FlightViewHolder(View itemView) {
@@ -176,6 +179,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
             btn = (Button) cv.findViewById(R.id.subscribe_button);
             airlineName = (TextView)itemView.findViewById(R.id.airline_name);
             fromToShort = (TextView)itemView.findViewById(R.id.from_to_shorts);
+            btnState = false;
         }
     }
 
