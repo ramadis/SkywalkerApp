@@ -29,7 +29,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -164,18 +166,20 @@ public class AlarmReceiver extends BroadcastReceiver {
         String message = "";
         ArrayList<String> lines = new ArrayList<>();
 
-        boolean changedStatus = Utils.get().equalsWithNulls(storedFlight.status, newFlight.status);
-        boolean changedArrivalTime = Utils.get().equalsWithNulls(storedFlight.arrival.scheduled_time, newFlight.arrival.scheduled_time);
-        boolean changedDepartureTime = Utils.get().equalsWithNulls(storedFlight.departure.scheduled_time, newFlight.departure.scheduled_time);
-        boolean changedArrivalTerminal = Utils.get().equalsWithNulls(storedFlight.arrival.airport.terminal, newFlight.arrival.airport.terminal);
-        boolean changedDepartureTerminal = Utils.get().equalsWithNulls(storedFlight.departure.airport.terminal, newFlight.departure.airport.terminal);
-        boolean changedArrivalGate = Utils.get().equalsWithNulls(storedFlight.arrival.airport.gate, newFlight.arrival.airport.gate);
-        boolean changedDepartureGate = Utils.get().equalsWithNulls(storedFlight.departure.airport.gate, newFlight.departure.airport.gate);
-        boolean changedBaggage = Utils.get().equalsWithNulls(storedFlight.arrival.airport.baggage, newFlight.arrival.airport.baggage);
+        boolean changedStatus = !Utils.get().equalsWithNulls(storedFlight.status, newFlight.status);
+        boolean changedArrivalTime = !Utils.get().equalsWithNulls(storedFlight.arrival.scheduled_time, newFlight.arrival.scheduled_time);
+        boolean changedGateTime = Utils.get().equalsWithNulls(storedFlight.departure.gate_delay, newFlight.departure.gate_delay);
+        boolean changedDepartureTime = !Utils.get().equalsWithNulls(storedFlight.departure.scheduled_time, newFlight.departure.scheduled_time);
+        boolean changedArrivalTerminal = !Utils.get().equalsWithNulls(storedFlight.arrival.airport.terminal, newFlight.arrival.airport.terminal);
+        boolean changedDepartureTerminal = !Utils.get().equalsWithNulls(storedFlight.departure.airport.terminal, newFlight.departure.airport.terminal);
+        boolean changedArrivalGate = !Utils.get().equalsWithNulls(storedFlight.arrival.airport.gate, newFlight.arrival.airport.gate);
+        boolean changedDepartureGate = !Utils.get().equalsWithNulls(storedFlight.departure.airport.gate, newFlight.departure.airport.gate);
+        boolean changedBaggage = !Utils.get().equalsWithNulls(storedFlight.arrival.airport.baggage, newFlight.arrival.airport.baggage);
         boolean shouldUpdate = false;
 
         updated.put("changedStatus", changedStatus);
         updated.put("changedArrivalTime", changedArrivalTime);
+        updated.put("changedGateTime", changedGateTime);
         updated.put("changedDepartureTime", changedDepartureTime);
         updated.put("changedArrivalTerminal", changedArrivalTerminal);
         updated.put("changedDepartureTerminal", changedDepartureTerminal);
@@ -185,6 +189,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         messages.put("changedStatus", context.getString(R.string.notification_message_status));
         messages.put("changedArrivalTime", context.getString(R.string.notification_message_arrival_time));
+        messages.put("changedGateTime", context.getString(R.string.notification_message_gate_time));
         messages.put("changedDepartureTime", context.getString(R.string.notification_message_departure_time));
         messages.put("changedArrivalTerminal", context.getString(R.string.notification_message_arrival_terminal));
         messages.put("changedDepartureTerminal", context.getString(R.string.notification_message_departure_terminal));
@@ -194,12 +199,30 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         values.put("changedStatus", newFlight.status);
         values.put("changedArrivalTime", newFlight.arrival.scheduled_time);
+        values.put("changedGateTime", newFlight.departure.gate_delay);
         values.put("changedDepartureTime", newFlight.departure.scheduled_time);
         values.put("changedArrivalTerminal", newFlight.arrival.airport.terminal);
         values.put("changedDepartureTerminal", newFlight.departure.airport.terminal);
         values.put("changedArrivalGate", newFlight.arrival.airport.gate);
         values.put("changedDepartureGate", newFlight.departure.airport.gate);
         values.put("changedBaggage", newFlight.arrival.airport.baggage);
+
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            Date date = parser.parse(newFlight.arrival.scheduled_time);
+            String formattedDate = formatter.format(date);
+            values.put("changedArrivalTime", formattedDate);
+        } catch(Throwable ignore) {Log.e("error", ignore.toString());}
+
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            Date date = parser.parse(newFlight.departure.scheduled_time);
+            String formattedDate = formatter.format(date);
+            values.put("changedDepartureTime", formattedDate);
+        } catch(Throwable ignore) {Log.e("error", ignore.toString());}
+
 
         status.put("L",context.getString(R.string.flights_status_l));
         status.put("R",context.getString(R.string.flights_status_r));
@@ -220,6 +243,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle();
         style.setSummaryText(newFlight.airline.id + newFlight.number.toString());
         for (String line: lines) style.addLine(line);
+
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)

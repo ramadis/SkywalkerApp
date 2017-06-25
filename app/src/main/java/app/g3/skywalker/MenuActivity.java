@@ -79,6 +79,11 @@ public class MenuActivity extends AppCompatActivity
         }
 
 
+        /*// DELETE
+        Storage storage = SimpleStorage.getInternalStorage(this);
+        storage.deleteFile("Skywalker", "Subscriptions");*/
+
+
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

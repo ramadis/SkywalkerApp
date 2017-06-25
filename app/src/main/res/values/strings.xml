@@ -50,4 +50,5 @@
     <string name="minutes">Minutes</string>
     <string name="minute">Minute</string>
     <string name="search_helper">i.e LA2889</string>
+    <string name="notification_message_gate_time">The gate time is now at</string>
 </resources>

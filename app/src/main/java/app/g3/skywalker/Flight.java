@@ -22,4 +22,8 @@ public class Flight implements Serializable {
         }
         return false;
     }
+
+    public int hashCode() {
+        return id;
+    }
 }

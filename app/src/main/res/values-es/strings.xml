@@ -46,4 +46,5 @@
     <string name="minutes">Minutos</string>
     <string name="minute">Minuto</string>
     <string name="search_helper">Ejemplo: LA2889</string>
+    <string name="notification_message_gate_time">El horario de embarque ahora es</string>
 </resources>
