@@ -16,7 +16,7 @@
     <string name="title_activity_map_deal">Map</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="settings_polling_title">Interval between updates</string>
     <string name="exit_message">Are you sure you want to close Skywalker app?</string>
     <string name="yes">yes</string>
@@ -46,4 +46,5 @@
     <string name="flights_status_r">Re-routed</string>
     <string name="flights_status_l">Landed</string>
     <string name="flights_status_c">Cancelled</string>
+    <string name="settings_tittle">Modify the updates\' look-up time to receive notifications more often!</string>
 </resources>
