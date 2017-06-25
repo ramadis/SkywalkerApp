@@ -36,6 +36,21 @@ public class SubscriptionsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (savedInstanceState != null) {
+            lastTitle = savedInstanceState.getString("lastTitle");
+        }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("lastTitle", lastTitle);
+        //Save the fragment's state here
+    }
+
     public SubscriptionsFragment() {
         // Required empty public constructor
     }

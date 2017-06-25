@@ -66,6 +66,13 @@ public class MenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            //Restore the fragment's instance
+            fragment = getFragmentManager().getFragment(savedInstanceState, "fragment");
+        }
+
+
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -155,10 +162,10 @@ public class MenuActivity extends AppCompatActivity
             } catch (SecurityException t) {}
         }
 
-        fragment = new SearchFragment();
+        /*fragment = new SearchFragment();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_menu, fragment)
-                .commit();
+                .commit();*/
     }
 
     public void notificationService() {
@@ -398,6 +405,13 @@ public class MenuActivity extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Save the fragment's instance
+        getFragmentManager().putFragment(outState, "fragment", fragment);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
