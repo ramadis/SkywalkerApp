@@ -1,5 +1,6 @@
 package app.g3.skywalker;
 
+import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.NotificationManager;
@@ -14,6 +15,7 @@ import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AlertDialog;
@@ -86,7 +88,13 @@ public class MenuActivity extends AppCompatActivity
         }).start();
 
         // Notification thread
-        new Thread(new Runnable() {
+        Intent notifyIntent = new Intent(MenuActivity.this, AlarmReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(MenuActivity.this, 0, notifyIntent,0);
+        AlarmManager alarm = (AlarmManager) getSystemService(ALARM_SERVICE);
+        // alarm.setRepeating(AlarmManager.RTC, 0, Utils.get().interval * 60 * 1000, pendingIntent);
+        alarm.setRepeating(AlarmManager.ELAPSED_REALTIME, SystemClock.elapsedRealtime() + Utils.get().interval, 1000, pendingIntent);
+
+        /*new Thread(new Runnable() {
             @Override
             public void run() {
                 // TODO Auto-generated method stub
@@ -107,7 +115,7 @@ public class MenuActivity extends AppCompatActivity
                     }
                 }
             }
-        }).start();
+        }).start();*/
 
         /*FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -153,14 +161,26 @@ public class MenuActivity extends AppCompatActivity
                 .commit();
     }
 
-    private void notificationService() {
+    public void notificationService() {
+        final Intent emptyIntent = new Intent();
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                        .setSmallIcon(R.drawable.ic_audiotrack)
+                        .setContentTitle("Test")
+                        .setContentText("test Message")
+                        .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(this.NOTIFICATION_SERVICE);
+        notificationManager.notify(notificationId++, mBuilder.build());
         ConnectivityManager cn=(ConnectivityManager)getSystemService(this.CONNECTIVITY_SERVICE);
         NetworkInfo nf=cn.getActiveNetworkInfo();
-        if(nf != null && nf.isConnected()==true ) notifySubscriptedFlights();
-        else Toast.makeText(this, getString(R.string.not_connected_message), Toast.LENGTH_SHORT).show();
+        //if(nf != null && nf.isConnected()==true ) notifySubscriptedFlights();
+        //else Toast.makeText(this, getString(R.string.not_connected_message), Toast.LENGTH_SHORT).show();
     }
 
-    private void notifySubscriptedFlights() {
+    public void notifySubscriptedFlights() {
         Storage storage = SimpleStorage.getInternalStorage(this);
         boolean dirExists = storage.isDirectoryExists("Skywalker");
         if (!dirExists) return;
@@ -208,7 +228,7 @@ public class MenuActivity extends AppCompatActivity
         // ENDPOINT: http://hci.it.itba.edu.ar/v1/api/status.groovy?method=getflightstatus&airline_id=8R&flight_number=8700
     }
 
-    private void updateFlight(Flight f) {
+    public void updateFlight(Flight f) {
         Storage storage = SimpleStorage.getInternalStorage(this);
         boolean dirExists = storage.isDirectoryExists("Skywalker");
         if (!dirExists) return;
@@ -235,7 +255,7 @@ public class MenuActivity extends AppCompatActivity
         }
     }
 
-    private boolean showNotification(Flight storedFlight, Flight newFlight) {
+    public boolean showNotification(Flight storedFlight, Flight newFlight) {
         final Intent emptyIntent = new Intent();
         PendingIntent pendingIntent = PendingIntent.getActivity(this, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
