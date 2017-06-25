@@ -43,4 +43,6 @@
     <string name="flights_status_l">Aterrizado</string>
     <string name="flights_status_c">Cancelado</string>
     <string name="settings_tittle">¡Modifica el tiempo de búsqueda de actualizaciones, para recibir las notificaciones más rápido!</string>
+    <string name="minutes">Minutos</string>
+    <string name="minute">Minuto</string>
 </resources>

@@ -47,4 +47,6 @@
     <string name="flights_status_l">Landed</string>
     <string name="flights_status_c">Cancelled</string>
     <string name="settings_tittle">Modify the updates\' look-up time to receive notifications more often!</string>
+    <string name="minutes">Minutes</string>
+    <string name="minute">Minute</string>
 </resources>

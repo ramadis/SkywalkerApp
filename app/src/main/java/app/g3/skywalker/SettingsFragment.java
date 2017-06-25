@@ -68,6 +68,30 @@ public class SettingsFragment extends Fragment {
         this.lastTitle = (String) getActivity().getTitle();
         getActivity().setTitle(getActivity().getString(R.string.menu_settings));
 
+        SeekBar seekBar = (SeekBar) rootView.findViewById(R.id.seekBarPoll);
+        final TextView seekBarValue = (TextView) rootView.findViewById(R.id.seekBarPollValue);
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress,
+                                          boolean fromUser) {
+                // TODO Auto-generated method stub
+                // This should work but not working.
+                Utils.get().interval = progress + 1;
+                seekBarValue.setText(String.valueOf(progress + 1) + " " + (progress + 1 == 1 ? getString(R.string.minute) : getString(R.string.minutes)));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                // TODO Auto-generated method stub
+            }
+        });
+
         return rootView;
     }
 
@@ -81,28 +105,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        /*SeekBar seekBar = (SeekBar) getView().findViewById(R.id.seekBarPoll);
-        final TextView seekBarValue = (TextView) getView().findViewById(R.id.seekBarPollValue);
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress,
-                                          boolean fromUser) {
-                // TODO Auto-generated method stub
-                // This should work but not working.
-                seekBarValue.setText(String.valueOf(progress));
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-                // TODO Auto-generated method stub
-            }
-        });*/
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
