@@ -28,6 +28,7 @@ public class SettingsFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    private String lastTitle;
 
     private OnFragmentInteractionListener mListener;
 
@@ -62,7 +63,12 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        this.lastTitle = (String) getActivity().getTitle();
+        getActivity().setTitle(getActivity().getString(R.string.menu_settings));
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -75,7 +81,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        SeekBar seekBar = (SeekBar) getView().findViewById(R.id.seekBarPoll);
+        /*SeekBar seekBar = (SeekBar) getView().findViewById(R.id.seekBarPoll);
         final TextView seekBarValue = (TextView) getView().findViewById(R.id.seekBarPollValue);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -96,7 +102,7 @@ public class SettingsFragment extends Fragment {
             public void onStopTrackingTouch(SeekBar seekBar) {
                 // TODO Auto-generated method stub
             }
-        });
+        });*/
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
@@ -108,6 +114,7 @@ public class SettingsFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        getActivity().setTitle(this.lastTitle);
         mListener = null;
     }
 

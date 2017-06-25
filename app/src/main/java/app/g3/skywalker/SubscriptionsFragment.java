@@ -84,7 +84,7 @@ public class SubscriptionsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_subscriptions, container, false);
 
         this.lastTitle = (String) getActivity().getTitle();
-        getActivity().setTitle("Suscripciones");
+        getActivity().setTitle(getActivity().getString(R.string.menu_notifications));
 
         initializeData();
 
