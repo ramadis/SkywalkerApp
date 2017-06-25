@@ -25,4 +25,5 @@
     <string name="unsuscribe_action">Desuscribirse</string>
     <string name="unsuscribe_message">Si te desuscribes, dejarás de recibir notificaciones para este vuelo.</string>
     <string name="not_connected_message">No se pueden mostrar notificaciones. Compruebe su conexión a internet.</string>
+    <string name="no_results">No pudimos encontrar el vuelo que buscabas. Intenta nuevamente con un vuelo diferente.</string>
 </resources>

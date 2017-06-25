@@ -18,4 +18,15 @@
         android:layout_alignParentTop="true"
         android:clipToPadding="true"
         android:id="@+id/resultsRV" />
+
+    <TextView
+        android:text="@string/no_results"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/noResultsMessage"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:textAlignment="center"
+        android:textColor="@color/cast_intro_overlay_background_color" />
 </RelativeLayout>

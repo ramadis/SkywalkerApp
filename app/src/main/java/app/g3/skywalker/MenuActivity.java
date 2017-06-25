@@ -275,6 +275,9 @@ public class MenuActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_subscriptions) {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.getMenu().getItem(2).setChecked(true);
+
             fragment = new SubscriptionsFragment();
             fragmentManager.beginTransaction()
                     .replace(R.id.content_menu, fragment)

@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,10 @@ public class ResultsActivity extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         rv.setLayoutManager(llm);
         ResultsAdapter adapter = new ResultsAdapter(flights, this, searchValue);
+
+        // Hide not flights message
+        findViewById(R.id.noResultsMessage).setVisibility(View.GONE);
+        findViewById(R.id.resultsRV).setVisibility(View.VISIBLE);
 
         //api call
         adapter.getResults();
