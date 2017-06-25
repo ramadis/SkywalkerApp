@@ -209,7 +209,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         try {
             SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             Date date = parser.parse(newFlight.arrival.scheduled_time);
             String formattedDate = formatter.format(date);
             values.put("changedArrivalTime", formattedDate);
@@ -217,7 +217,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         try {
             SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
             Date date = parser.parse(newFlight.departure.scheduled_time);
             String formattedDate = formatter.format(date);
             values.put("changedDepartureTime", formattedDate);

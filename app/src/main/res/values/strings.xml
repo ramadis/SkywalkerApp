@@ -47,4 +47,10 @@
     <string name="image_paper_plane_description">Paper plane</string>
     <string name="image_city_description">City picture</string>
     <string name="subscription_title">Right now, you are subscribed to these flights. Unscribe if you want to stop notifications for a flight.</string>
+    <string name="result_time_dep">Departure time</string>
+    <string name="result_time_arr">Arrival time</string>
+    <string name="result_term_dep">Departure terminal</string>
+    <string name="result_term_arr">Arrival terminal</string>
+    <string name="result_gate_dep">Departure gate</string>
+    <string name="result_gate_arr">Arrival gate</string>
 </resources>

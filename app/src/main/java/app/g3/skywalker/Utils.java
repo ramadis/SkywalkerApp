@@ -20,6 +20,11 @@ public class Utils {
         return a.equals(b);
     }
 
+    public String camulfage(String s, Object o) {
+        if (o == null) return s;
+        return o.toString();
+    }
+
     public static Utils get() {
         if (instance == null) instance = new Utils();
         return instance;

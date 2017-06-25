@@ -44,4 +44,10 @@
     <string name="image_paper_plane_description">Avión de papel</string>
     <string name="image_city_description">Foto de una ciudad</string>
     <string name="subscription_title">Ahora mismo estás suscripto a estos vuelos. Desuscríbete si deseas dejar de recibir notificaciones.</string>
+    <string name="result_time_dep">Horario de salida</string>
+    <string name="result_time_arr">Horario de llegada</string>
+    <string name="result_term_dep">Terminal de salida</string>
+    <string name="result_term_arr">Terminal de llegada</string>
+    <string name="result_gate_dep">Puerta de embarque</string>
+    <string name="result_gate_arr">Puerta de llegada</string>
 </resources>
