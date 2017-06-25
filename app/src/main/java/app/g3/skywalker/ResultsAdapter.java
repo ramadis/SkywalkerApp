@@ -76,7 +76,7 @@ public class ResultsAdapter extends RecyclerView.Adapter<ResultsAdapter.FlightVi
     }
 
     public void getResults() {
-        Pattern p = Pattern.compile("^[a-zA-Z0-9]{2} ?\\d{4,6}$");
+        Pattern p = Pattern.compile("^[a-zA-Z0-9]{2} ?\\d{1,6}$");
         Matcher m = p.matcher(this.searchValue);
         boolean isFlight = m.matches();
 

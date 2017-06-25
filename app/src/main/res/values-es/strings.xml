@@ -27,4 +27,19 @@
     <string name="not_connected_message">No se pueden mostrar notificaciones. Compruebe su conexión a internet.</string>
     <string name="no_results">No pudimos encontrar el vuelo que buscabas. Intenta nuevamente con un vuelo diferente.</string>
     <string name="no_suscriptions">Parece que todavía no te has suscripto a ningún vuelo. ¡Busca uno y suscríbete para recibir notificaciones de su estado!</string>
+    <string name="notification_message_status">El vuelo está</string>
+    <string name="notification_message_arrival_time">El horario de  arribo ahora es</string>
+    <string name="notification_message_departure_time">El horario de salida ahora es</string>
+    <string name="notification_message_arrival_terminal">La terminal de llegada ahora es la terminal</string>
+    <string name="notification_message_departure_terminal">La terminal de embarque ahora es la terminal</string>
+    <string name="notification_message_arrival_gate">La puerta de llegada ahora es la puerta</string>
+    <string name="notification_message_departure_gate">La puerta de embarque ahora es la puerta</string>
+    <string name="notification_message_baggage">Recoja sus valijas en la cinta</string>
+    <string name="the_flight">El vuelo</string>
+    <string name="modified_message">ha sufrido modificaciones</string>
+    <string name="flights_status_s">Programado</string>
+    <string name="flights_status_a">Activo</string>
+    <string name="flights_status_r">Desviado</string>
+    <string name="flights_status_l">Aterrizado</string>
+    <string name="flights_status_c">Cancelado</string>
 </resources>

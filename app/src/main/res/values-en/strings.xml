@@ -27,4 +27,19 @@
     <string name="not_connected_message">Notifications can\'t be shown, check your internet connection.</string>
     <string name="no_results">We couldn\'t find the flight you were looking for. Try again with a different flight.</string>
     <string name="no_suscriptions">It looks like you are not subscribed to any flights yet. Search for a flight and subscribe to get status notifications!</string>
+    <string name="notification_message_status">The flight is</string>
+    <string name="notification_message_arrival_time">The arrival time is now</string>
+    <string name="notification_message_departure_time">The departure time is now</string>
+    <string name="notification_message_arrival_terminal">The arrival terminal is now terminal</string>
+    <string name="notification_message_departure_terminal">The departure terminal is now terminal</string>
+    <string name="notification_message_arrival_gate">The arrival gate is now gate</string>
+    <string name="notification_message_departure_gate">The departure gate is now gate</string>
+    <string name="notification_message_baggage">Pick your baggage on line</string>
+    <string name="the_flight">The flight</string>
+    <string name="modified_message">has been modified</string>
+    <string name="flights_status_s">Programmed</string>
+    <string name="flights_status_a">Active</string>
+    <string name="flights_status_r">Re-routed</string>
+    <string name="flights_status_l">Landed</string>
+    <string name="flights_status_c">Cancelled</string>
 </resources>

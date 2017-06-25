@@ -14,6 +14,12 @@ public class Utils {
         this.cityId = "BUE";
     }
 
+    public boolean equalsWithNulls(Object a, Object b) {
+        if (a==b) return true;
+        if ((a==null)||(b==null)) return false;
+        return a.equals(b);
+    }
+
     public static Utils get() {
         if (instance == null) instance = new Utils();
         return instance;
