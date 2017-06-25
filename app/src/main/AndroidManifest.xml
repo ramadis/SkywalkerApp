@@ -20,11 +20,6 @@
             android:name=".MenuActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -35,6 +30,7 @@
              You can define the keys for the debug and release targets in src/debug/ and src/release/. 
         -->
         <receiver android:name=".AlarmReceiver" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -42,10 +38,18 @@
         <activity
             android:name=".MapDealActivity"
             android:label="@string/title_activity_map_deal" />
-
         <activity
             android:name=".ResultsActivity"
             android:label="@string/title_activity_results" />
+
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
