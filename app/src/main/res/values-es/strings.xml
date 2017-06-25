@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Cerrar menú</string>
     <string name="navigation_drawer_open">Abrir menú</string>
     <string name="search_title">¡Encuentra los vuelos que más te interesan!</string>
-    <string name="search_placeholder">Destino o número de vuelo</string>
+    <string name="search_placeholder">Número de vuelo</string>
     <string name="menu_options">Menú de opciones</string>
     <string name="search_action">Buscar</string>
     <string name="menu_search">Buscar</string>
@@ -45,4 +45,5 @@
     <string name="settings_tittle">¡Modifica el tiempo de búsqueda de actualizaciones, para recibir las notificaciones más rápido!</string>
     <string name="minutes">Minutos</string>
     <string name="minute">Minuto</string>
+    <string name="search_helper">Ejemplo: LA2889</string>
 </resources>

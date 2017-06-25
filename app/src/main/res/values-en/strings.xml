@@ -5,7 +5,7 @@
     <string name="navigation_drawer_close">Close menu</string>
     <string name="navigation_drawer_open">Open menu</string>
     <string name="search_title">Find the flights your are more intrested!</string>
-    <string name="search_placeholder">Destination or flight number</string>
+    <string name="search_placeholder">Flight number</string>
     <string name="menu_options">Menu options</string>
     <string name="search_action">Search</string>
     <string name="menu_search">Search</string>
@@ -45,4 +45,5 @@
     <string name="settings_tittle">Modify the updates\' look-up time to receive notifications more often!</string>
     <string name="minutes">Minutes</string>
     <string name="minute">Minute</string>
+    <string name="search_helper">i.e LA2889</string>
 </resources>

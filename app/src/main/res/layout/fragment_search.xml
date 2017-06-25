@@ -78,7 +78,7 @@
             android:onClick="onClick (SearchFragment)" />
 
         <TextView
-            android:text="Ejemplo: Londres o LA2889"
+            android:text="@string/search_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
