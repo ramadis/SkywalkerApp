@@ -5,10 +5,13 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -26,6 +29,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,22 +48,34 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public void notificationService() {
-        final Intent emptyIntent = new Intent();
+        // NOTIFICATION BAREBONES.
+
+        /*final Intent emptyIntent = new Intent();
         PendingIntent pendingIntent = PendingIntent.getActivity(context, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Bitmap bm = BitmapFactory.decodeResource(context.getResources(), R.drawable.chicago);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
+                        //.setLargeIcon(bm)
                         .setSmallIcon(R.drawable.ic_audiotrack)
+                        .setStyle(new NotificationCompat.InboxStyle()
+                                .addLine("Su vuelo ahora está Activo")
+                                .addLine("La terminal de embarque ahora es la terminal J")
+                                .addLine("La puerta de embarque ahora es la puerta J")
+                                .addLine("La puerta de embarque ahora es la puerta J")
+                                .addLine("La puerta de embarque ahora es la puerta J")
+                                .addLine("La puerta de embarque ahora es la puerta J")
+                                .setSummaryText("Vuelo LA2999"))
                         .setContentTitle(context.getString(R.string.the_flight) + " LA2998 " + context.getString(R.string.modified_message))
                         .setContentText("Su vuelo ahora está Activo\n La terminal de embarque ahora es la terminal J\nLa puerta de embarque ahora es la puerta J")
                         .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId++, mBuilder.build());
+        notificationManager.notify(notificationId++, mBuilder.build());*/
         ConnectivityManager cn=(ConnectivityManager) context.getSystemService(context.CONNECTIVITY_SERVICE);
         NetworkInfo nf=cn.getActiveNetworkInfo();
-        //if(nf != null && nf.isConnected()==true ) notifySubscriptedFlights();
-        //else Toast.makeText(this, getString(R.string.not_connected_message), Toast.LENGTH_SHORT).show();
+        if(nf != null && nf.isConnected()==true ) notifySubscriptedFlights();
     }
 
     public void notifySubscriptedFlights() {
@@ -146,6 +162,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         Map<String, String> values = new HashMap<>();
         Map<String, String> status = new HashMap<>();
         String message = "";
+        ArrayList<String> lines = new ArrayList<>();
 
         boolean changedStatus = Utils.get().equalsWithNulls(storedFlight.status, newFlight.status);
         boolean changedArrivalTime = Utils.get().equalsWithNulls(storedFlight.arrival.scheduled_time, newFlight.arrival.scheduled_time);
@@ -193,15 +210,22 @@ public class AlarmReceiver extends BroadcastReceiver {
         for(String key: updated.keySet()) {
             shouldUpdate = shouldUpdate || updated.get(key);
             if (updated.get(key)) {
-                message += messages.get(key) + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ".\n";
+                lines.add(messages.get(key) + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ".");
+                message += messages.get(key) + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ". ";
             }
         }
 
         if (!shouldUpdate) return false;
 
+        NotificationCompat.InboxStyle style = new NotificationCompat.InboxStyle();
+        style.setSummaryText(newFlight.airline.id + newFlight.number.toString());
+        for (String line: lines) style.addLine(line);
+
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
+                        //.setLargeIcon(bm)
                         .setSmallIcon(R.drawable.ic_audiotrack)
+                        .setStyle(style)
                         .setContentTitle(context.getString(R.string.the_flight) + " " + newFlight.airline.id + newFlight.number.toString() + " " + context.getString(R.string.modified_message))
                         .setContentText(message)
                         .setContentIntent(pendingIntent);
