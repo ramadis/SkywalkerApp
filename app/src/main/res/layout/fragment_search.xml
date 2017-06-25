@@ -50,7 +50,7 @@
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 android:textAlignment="viewStart"
-                android:capitalize="sentences"
+                android:capitalize="characters"
                 tools:ignore="UnknownId"
                 android:maxLines="1"
                 android:ellipsize="end"

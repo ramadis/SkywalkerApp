@@ -113,14 +113,15 @@ public class SubscriptionsFragment extends Fragment {
         // create adapter
         SubscriptionsAdapter adapter = new SubscriptionsAdapter(flights, getActivity());
 
-        // Get subscriptions from storage
-        adapter.getSubscriptions();
-
         // Attach adapter
         rv.setAdapter(adapter);
 
+        // Get subscriptions from storage
+        adapter.getSubscriptions();
+
         // No subscriptions message
         rootView.findViewById(R.id.noResultsMessage).setVisibility(View.GONE);
+        rootView.findViewById(R.id.planeImageSubs).setVisibility(View.GONE);
         rootView.findViewById(R.id.subscriptionsRV).setVisibility(View.VISIBLE);
         rootView.findViewById(R.id.explanationSubscription).setVisibility(View.VISIBLE);
 

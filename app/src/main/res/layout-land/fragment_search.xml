@@ -50,7 +50,7 @@
                 android:textSize="24sp"
                 android:textStyle="normal|bold"
                 android:textAlignment="viewStart"
-                android:capitalize="sentences"
+                android:capitalize="characters"
                 tools:ignore="UnknownId"
                 android:maxLines="1"
                 android:ellipsize="end"
@@ -79,7 +79,7 @@
             android:onClick="onClick (SearchFragment)" />
 
         <TextView
-            android:text="Ejemplo: Londres o LA2889"
+            android:text="@string/search_helper"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textView4"
