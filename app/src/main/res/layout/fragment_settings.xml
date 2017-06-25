@@ -17,7 +17,7 @@
             android:layout_marginTop="30dp"
             android:id="@+id/titleSettingsFragm"
             android:textAlignment="center"
-            android:textStyle="normal|bold" />
+            android:textSize="14sp" />
 
         <TextView
             android:text="5 Minutos"

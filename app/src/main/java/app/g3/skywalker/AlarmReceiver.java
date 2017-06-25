@@ -154,8 +154,8 @@ public class AlarmReceiver extends BroadcastReceiver {
     }
 
     public boolean showNotification(Flight storedFlight, Flight newFlight) {
-        final Intent emptyIntent = new Intent();
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, -1, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        final Intent emptyIntent = new Intent(context, MenuActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, emptyIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Map<String, Boolean> updated = new HashMap<>();
         Map<String, String> messages = new HashMap<>();
@@ -210,8 +210,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         for(String key: updated.keySet()) {
             shouldUpdate = shouldUpdate || updated.get(key);
             if (updated.get(key)) {
-                lines.add(messages.get(key) + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ".");
-                message += messages.get(key) + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ". ";
+                lines.add(messages.get(key) + " " + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ".");
+                message += messages.get(key) + " " + (key.equals("changedStatus") ? status.get(values.get(key)) : values.get(key)) + ". ";
             }
         }
 

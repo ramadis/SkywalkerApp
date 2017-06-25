@@ -69,10 +69,12 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
 
             if (newFlights.size() <= 0) {
                 // TODO: How to access view from adapter?
-                ((Activity) context).findViewById(R.id.noResultsMessage).setVisibility(View.VISIBLE);
-                ((Activity) context).findViewById(R.id.planeImageSubs).setVisibility(View.VISIBLE);
-                ((Activity) context).findViewById(R.id.subscriptionsRV).setVisibility(View.GONE);
-                ((Activity) context).findViewById(R.id.explanationSubscription).setVisibility(View.GONE);
+                try {
+                    ((Activity) context).findViewById(R.id.noResultsMessage).setVisibility(View.VISIBLE);
+                    ((Activity) context).findViewById(R.id.planeImageSubs).setVisibility(View.VISIBLE);
+                    ((Activity) context).findViewById(R.id.subscriptionsRV).setVisibility(View.GONE);
+                    ((Activity) context).findViewById(R.id.explanationSubscription).setVisibility(View.GONE);
+                } catch (Throwable ignore) {}
                 return;
             }
 
