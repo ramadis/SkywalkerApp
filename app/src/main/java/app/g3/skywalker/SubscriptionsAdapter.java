@@ -1,5 +1,6 @@
 package app.g3.skywalker;
 
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -35,6 +36,7 @@ import java.util.List;
 public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdapter.FlightViewHolder>{
 
     List<Flight> flights;
+    View rootView;
     Context context;
     SubscriptionsAdapter(List<Flight> flights, Context context){
         this.flights = flights;
@@ -64,10 +66,21 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
             ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
             ObjectInputStream si = new ObjectInputStream(bi);
             List<Flight> newFlights = (List<Flight>) si.readObject();
+
+            if (newFlights.size() <= 0) {
+                // TODO: How to access view from adapter?
+                ((Activity) context).findViewById(R.id.noResultsMessage).setVisibility(View.VISIBLE);
+                ((Activity) context).findViewById(R.id.subscriptionsRV).setVisibility(View.GONE);
+                ((Activity) context).findViewById(R.id.explanationSubscription).setVisibility(View.GONE);
+                return;
+            }
+
             flights.clear();
             flights.addAll(newFlights);
             notifyDataSetChanged();
-        } catch(Throwable e) {}
+        } catch(Throwable e) {
+            Log.d("error", e.toString());
+        }
     }
 
     public void removeSubscription(String id) {

@@ -104,6 +104,11 @@ public class SubscriptionsFragment extends Fragment {
         // Attach adapter
         rv.setAdapter(adapter);
 
+        // No subscriptions message
+        rootView.findViewById(R.id.noResultsMessage).setVisibility(View.GONE);
+        rootView.findViewById(R.id.subscriptionsRV).setVisibility(View.VISIBLE);
+        rootView.findViewById(R.id.explanationSubscription).setVisibility(View.VISIBLE);
+
         return rootView;
     }
 

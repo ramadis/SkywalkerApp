@@ -57,6 +57,9 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealViewHold
 
                         try {
                             JSONObject root = new JSONObject(response);
+
+                            if (root.has("error")) return;
+
                             String dealsString = root.getJSONArray("deals").toString();
                             Type listType = new TypeToken<ArrayList<DealRequest>>(){}.getType();
                             List<DealRequest> newDealsRequest = new Gson().fromJson(dealsString, listType);
