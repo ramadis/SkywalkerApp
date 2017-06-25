@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -69,7 +70,7 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealViewHold
                                 newDeals.add(new Deal(1, d.city, d.price));
                             }
 
-                            deals.addAll(newDeals);
+                            deals.addAll(newDeals.subList(0, 3));
                             notifyDataSetChanged();
                         } catch (Throwable e) {}
                     }
@@ -99,8 +100,24 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealViewHold
 
     @Override
     public void onBindViewHolder(DealViewHolder personViewHolder, int i) {
+        String message = context.getResources().getString(R.string.price_deal_tag) + deals.get(i).getPrice().toString();
+
         personViewHolder.city.setText(deals.get(i).getCity().toString());
-        personViewHolder.price.setText(context.getResources().getString(R.string.price_deal_tag) + deals.get(i).getPrice().toString());
+        personViewHolder.price.setText(message);
+        switch(i) {
+            case 0:
+                personViewHolder.cityImage.setImageDrawable(context.getDrawable(R.drawable.london));
+                break;
+            case 1:
+                personViewHolder.cityImage.setImageDrawable(context.getDrawable(R.drawable.chicago));
+                break;
+            case 2:
+                personViewHolder.cityImage.setImageDrawable(context.getDrawable(R.drawable.new_york));
+                break;
+            default:
+                personViewHolder.cityImage.setImageDrawable(context.getDrawable(R.drawable.chicago));
+                break;
+        }
     }
 
     @Override
@@ -112,12 +129,14 @@ public class DealsAdapter extends RecyclerView.Adapter<DealsAdapter.DealViewHold
         CardView cv;
         TextView city;
         TextView price;
+        ImageView cityImage;
 
         DealViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.cardDealElement);
             price = (TextView) itemView.findViewById(R.id.deal_price);
             city = (TextView)itemView.findViewById(R.id.deal_city);
+            cityImage = (ImageView) itemView.findViewById(R.id.cityImage);
         }
     }
 

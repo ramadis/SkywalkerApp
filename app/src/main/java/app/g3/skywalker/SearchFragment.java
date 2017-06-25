@@ -96,6 +96,10 @@ public class SearchFragment extends Fragment {
         DealsAdapter adapter = new DealsAdapter(deals, getActivity());
         adapter.getDeals();
         rv.setAdapter(adapter);
+        rv.setHasFixedSize(true);
+        rv.setItemViewCacheSize(3);
+        rv.setDrawingCacheEnabled(true);
+        rv.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
 
         // Search button behaviour
         AutoCompleteTextView field = (AutoCompleteTextView) rootView.findViewById(R.id.searchField);

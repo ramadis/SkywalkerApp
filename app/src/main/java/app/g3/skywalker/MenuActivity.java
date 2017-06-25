@@ -402,6 +402,14 @@ public class MenuActivity extends AppCompatActivity
             fragmentManager.beginTransaction()
                     .replace(R.id.content_menu, fragment)
                     .commit();
+        } else if (id == R.id.action_settings) {
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.getMenu().getItem(3).setChecked(true);
+
+            fragment = new SettingsFragment();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
         }
 
         return super.onOptionsItemSelected(item);
