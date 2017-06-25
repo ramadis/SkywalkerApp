@@ -168,7 +168,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         boolean changedStatus = !Utils.get().equalsWithNulls(storedFlight.status, newFlight.status);
         boolean changedArrivalTime = !Utils.get().equalsWithNulls(storedFlight.arrival.scheduled_time, newFlight.arrival.scheduled_time);
-        boolean changedGateTime = Utils.get().equalsWithNulls(storedFlight.departure.gate_delay, newFlight.departure.gate_delay);
+        boolean changedGateTime = !Utils.get().equalsWithNulls(storedFlight.departure.gate_delay, newFlight.departure.gate_delay);
         boolean changedDepartureTime = !Utils.get().equalsWithNulls(storedFlight.departure.scheduled_time, newFlight.departure.scheduled_time);
         boolean changedArrivalTerminal = !Utils.get().equalsWithNulls(storedFlight.arrival.airport.terminal, newFlight.arrival.airport.terminal);
         boolean changedDepartureTerminal = !Utils.get().equalsWithNulls(storedFlight.departure.airport.terminal, newFlight.departure.airport.terminal);

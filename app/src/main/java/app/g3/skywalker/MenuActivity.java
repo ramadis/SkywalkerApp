@@ -3,22 +3,14 @@ package app.g3.skywalker;
 import android.app.AlarmManager;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AlertDialog;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -30,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,19 +31,13 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.MapView;
 import com.google.gson.Gson;
-import com.sromku.simple.storage.SimpleStorage;
-import com.sromku.simple.storage.Storage;
+import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MenuActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -189,13 +174,16 @@ public class MenuActivity extends AppCompatActivity
                     public void onResponse(String response) {
                         try {
                             JSONObject root = new JSONObject(response);
+                            if (root.has("error")) return;
+
                             String airportsString = root.getJSONArray("airports").toString();
-                            List<Airport> airports = (List<Airport>) new Gson().fromJson(airportsString, Airport.class);
+                            Type listType = new TypeToken<ArrayList<Airport>>(){}.getType();
+                            List<Airport> airports = (List<Airport>) new Gson().fromJson(airportsString, listType);
 
                             if (airports.size() <= 0) return;
 
-                            String city = airports.get(0).city.id;
-                            Utils.get().cityId = city;
+                            String cityString = airports.get(0).city.id;
+                            Utils.get().cityId = cityString;
                         } catch (Throwable e) {}
                     }
                 }, new Response.ErrorListener() {
