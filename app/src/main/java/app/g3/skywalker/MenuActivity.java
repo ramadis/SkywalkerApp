@@ -66,6 +66,14 @@ public class MenuActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState == null) {
+            fragment = new SearchFragment();
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.getMenu().getItem(0).setChecked(true);
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content_menu, fragment)
+                    .commit();
+        }
 
         if (savedInstanceState != null) {
             //Restore the fragment's instance
