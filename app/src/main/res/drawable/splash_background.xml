@@ -2,9 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@color/colorAccent" />
 
-    <item
-        android:left="20dp"
-        android:right="20dp">
+    <item>
         <bitmap android:gravity="center" android:src="@drawable/logo_big" />
     </item>
 </layer-list>
