@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:id="@+id/cardDealLayout"
+    android:id="@+id/cardResultLayout"
     android:layout_height="wrap_content"
     android:paddingTop="10dp">
 
@@ -52,8 +52,8 @@
                 android:id="@+id/result_term_arr"
                 android:layout_below="@+id/result_time_arr"
                 android:layout_alignEnd="@+id/result_time_arr"
-                android:textAlignment="viewEnd"
-                android:visibility="gone" />
+                android:visibility="visible"
+                android:textAlignment="textEnd" />
 
             <TextView
                 android:text="Horario de salida: 17:00"
@@ -63,56 +63,7 @@
                 android:layout_below="@+id/result_term_arr"
                 android:layout_alignStart="@+id/result_term_arr"
                 android:textAlignment="viewEnd"
-                android:visibility="gone" />
-
-            <TextView
-                android:text="Horario de salida: 17:00"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/result_term_dep"
-                android:layout_centerVertical="true"
-                android:layout_alignStart="@+id/from_to_shorts"
-                android:visibility="gone" />
-
-            <TextView
-                android:text="Horario de salida: 17:00"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/result_gate_dep"
-                android:layout_alignBaseline="@+id/result_gate_arr"
-                android:layout_alignBottom="@+id/result_gate_arr"
-                android:layout_alignStart="@+id/result_term_dep"
-                android:visibility="gone" />
-
-            <TextView
-                android:text="Horario de llegada: 17:00"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/result_time_arr"
-                android:textAlignment="viewEnd"
-                android:layout_below="@+id/flightCode"
-                android:layout_alignEnd="@+id/result_time_dep"
-                android:visibility="gone" />
-
-            <Button
-                android:text="@string/unsuscribe_action"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/subscribe_button"
-                style="@style/Widget.AppCompat.Button.Colored"
-                android:layout_below="@+id/from_to_shorts"
-                android:layout_alignParentStart="true"
-                android:backgroundTint="@android:color/holo_orange_dark" />
-
-            <TextView
-                android:text="Horario de salida: 17:00"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/result_time_dep"
-                android:layout_above="@+id/from_to_shorts"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="15dp"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <TextView
                 android:text="TextView"
@@ -123,7 +74,57 @@
                 android:layout_above="@+id/from_to_shorts"
                 android:layout_alignParentEnd="true"
                 android:textSize="18sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:visibility="invisible" />
+
+            <Button
+                android:text="@string/unsuscribe_action"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/subscribe_button"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_below="@+id/result_term_dep"
+                android:layout_alignParentStart="true"
+                android:backgroundTint="@android:color/holo_orange_dark" />
+
+            <TextView
+                android:text="Horario de salida: 17:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_term_dep"
+                android:visibility="visible"
+                android:layout_below="@+id/result_gate_dep"
+                android:layout_alignStart="@+id/from_to_shorts" />
+
+            <TextView
+                android:text="Horario de salida: 17:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_time_dep"
+                android:layout_marginRight="15dp"
+                android:visibility="visible"
+                android:layout_below="@+id/from_to_shorts"
+                android:layout_alignStart="@+id/airline_name" />
+
+            <TextView
+                android:text="Horario de llegada: 17:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_time_arr"
+                android:textAlignment="viewEnd"
+                android:visibility="visible"
+                android:layout_alignBaseline="@+id/result_time_dep"
+                android:layout_alignBottom="@+id/result_time_dep"
+                android:layout_alignEnd="@+id/small_time" />
+
+            <TextView
+                android:text="Horario de salida: 17:00"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/result_gate_dep"
+                android:visibility="visible"
+                android:layout_below="@+id/result_time_dep"
+                android:layout_alignStart="@+id/result_time_dep" />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

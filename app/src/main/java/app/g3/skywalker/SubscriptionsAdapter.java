@@ -25,7 +25,9 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -138,10 +140,48 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
     @Override
     public void onBindViewHolder(SubscriptionsAdapter.FlightViewHolder personViewHolder, int i) {
         Log.d("name", flights.get(i).airline.name);
+        Flight f = flights.get(i);
         personViewHolder.airlineName.setText(flights.get(i).airline.name);
         personViewHolder.fromToShort.setText(flights.get(i).departure.airport.id + " to " + flights.get(i).arrival.airport.id);
         personViewHolder.btn.setOnClickListener(personViewHolder);
+        personViewHolder.flightCode.setText(flights.get(i).airline.id + flights.get(i).number);
         personViewHolder.btn.setTag(flights.get(i).airline.id + flights.get(i).number.toString());
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            Date date = parser.parse(f.departure.scheduled_time);
+            String formattedDate = formatter.format(date);
+            personViewHolder.result_time_dep.setText(context.getString(R.string.result_time_dep) + ": " + formattedDate);
+        } catch(Throwable ignore) {
+            personViewHolder.result_time_dep.setText(context.getString(R.string.result_time_dep) + ": -");
+        }
+
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            Date date = parser.parse(f.arrival.scheduled_time);
+            String formattedDate = formatter.format(date);
+            personViewHolder.result_time_arr.setText(context.getString(R.string.result_time_arr) + ": " + formattedDate);
+        } catch(Throwable ignore) {
+            personViewHolder.result_time_arr.setText(context.getString(R.string.result_time_arr) + ": -");
+        }
+
+        personViewHolder.result_term_dep.setText(context.getString(R.string.result_term_dep) + ": " + Utils.get().camulfage("-", f.departure.airport.terminal));
+        personViewHolder.result_term_arr.setText(context.getString(R.string.result_term_arr) + ": " +  Utils.get().camulfage("-", f.arrival.airport.terminal));
+        personViewHolder.result_gate_dep.setText(context.getString(R.string.result_gate_dep) + ": " +  Utils.get().camulfage("-", f.departure.airport.gate));
+        personViewHolder.result_gate_arr.setText(context.getString(R.string.result_gate_arr) + ": " +  Utils.get().camulfage("-", f.arrival.airport.gate));
+
+        try {
+            SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+            Date date = parser.parse(f.arrival.scheduled_time);
+            Date date2 = parser.parse(f.departure.scheduled_time);
+            String formattedDate = formatter.format(date);
+            String formattedDate2 = formatter.format(date2);
+            personViewHolder.small_time.setText(formattedDate2 + " - " + formattedDate);
+        } catch(Throwable ignore) {
+            personViewHolder.small_time.setText("");
+        }
     }
 
     @Override
@@ -154,6 +194,14 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
         TextView airlineName;
         TextView fromToShort;
         SubscriptionsAdapter adapter;
+        TextView result_time_dep;
+        TextView result_time_arr;
+        TextView result_term_dep;
+        TextView result_term_arr;
+        TextView result_gate_arr;
+        TextView small_time;
+        TextView flightCode;
+        TextView result_gate_dep;
         Button btn;
 
         public void onClick(final View v) {
@@ -187,9 +235,16 @@ public class SubscriptionsAdapter extends RecyclerView.Adapter<SubscriptionsAdap
             cv = (CardView) itemView.findViewById(R.id.cardResultElement);
             btn = (Button) cv.findViewById(R.id.subscribe_button);
             airlineName = (TextView)itemView.findViewById(R.id.airline_name);
+            result_time_dep = (TextView)itemView.findViewById(R.id.result_time_dep);
+            result_time_arr = (TextView)itemView.findViewById(R.id.result_time_arr);
+            result_term_dep = (TextView)itemView.findViewById(R.id.result_term_dep);
+            result_term_arr = (TextView)itemView.findViewById(R.id.result_term_arr);
+            result_gate_arr = (TextView)itemView.findViewById(R.id.result_gate_arr);
+            result_gate_dep = (TextView)itemView.findViewById(R.id.result_gate_dep);
+            small_time = (TextView)itemView.findViewById(R.id.small_time);
             fromToShort = (TextView)itemView.findViewById(R.id.from_to_shorts);
+            flightCode = (TextView)itemView.findViewById(R.id.flightCode);
             this.adapter = adapter;
         }
     }
-
 }
