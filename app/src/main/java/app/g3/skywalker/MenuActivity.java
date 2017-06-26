@@ -47,7 +47,6 @@ public class MenuActivity extends AppCompatActivity
     Handler handler;
     Integer notificationId;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
